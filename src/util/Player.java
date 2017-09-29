@@ -16,6 +16,7 @@ public class Player {
 		String playerName;
 	}
 	public ArrayList<Card> getHand() {
+		
 		return hand;
 	}
 	public void setHand(ArrayList<Card> hand) {
@@ -45,5 +46,5 @@ public class Player {
 	public void setPlayerName(String playerName) {
 		this.playerName = playerName;
 	}
-	
+
 }

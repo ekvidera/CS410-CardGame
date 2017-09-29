@@ -27,4 +27,44 @@ public class Card {
 		return rank.ordinal() + 2;
 	}
 	
+	public String toString() {
+		String suitStr;
+		String rankStr;
+		
+		/*switch (suit) {
+		case CLUBS:
+			suitStr = "clubs";
+			break;
+		case DIAMONDS:
+			suitStr = "diamonds";
+			break;
+		case HEARTS:
+			suitStr = "hearts";
+			break;
+		case SPADES:
+			suitStr = "spades";
+			break;
+		default:
+			suitStr = "err";
+		}
+		
+		switch (rank) {
+			case JACK:
+				rankStr = "jack"; 
+				break;
+			case QUEEN:
+				rankStr = "queen";
+				break;
+			case KING:
+				rankStr = "king";
+				break;
+			case ACE:
+				rankStr = "ace";
+				break;
+			default:
+				rankStr = Integer.toString(getValue());
+		}*/
+		
+		return String.format("%s of %s\n", rank, suit);
+	}
 }
