@@ -17,7 +17,7 @@ These are classes used only by the game server to initialize the game, hold and 
    * includes methods for interacting with the player over the network (awaitPlayerConnection(), notifyAndAwaitPlayerTurn(), ping(), inquireGameState(), sendGameState(), disconnect())
 
 * Game (extends util.GameState)
-   *holds information about the state of the game, as well as references to each ServerPlayer object
+   * holds information about the state of the game, as well as references to each ServerPlayer object
    * implements game logic and the main game loop responsible for running the game
    * includes methods for advancing the turn, interacting with the table, checking the sanity of player moves and executing them, and dealing with the initialization and termination of a game
    
