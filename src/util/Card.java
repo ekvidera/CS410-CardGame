@@ -1,11 +1,11 @@
 package util;
 
-public class Card {
-	enum Rank {TWO, THREE, FOUR, 
+public class Card implements Comparable<Card> {
+	public enum Rank {TWO, THREE, FOUR, 
 		FIVE, SIX, SEVEN, 
 		EIGHT, NINE, TEN, 
 		JACK, QUEEN, KING, ACE};
-	enum Suit {CLUBS, DIAMONDS, HEARTS, SPADES};
+	public enum Suit {CLUBS, DIAMONDS, HEARTS, SPADES};
 
 	private Rank rank;
 	private Suit suit;
@@ -28,43 +28,12 @@ public class Card {
 	}
 	
 	public String toString() {
-		String suitStr;
-		String rankStr;
-		
-		/*switch (suit) {
-		case CLUBS:
-			suitStr = "clubs";
-			break;
-		case DIAMONDS:
-			suitStr = "diamonds";
-			break;
-		case HEARTS:
-			suitStr = "hearts";
-			break;
-		case SPADES:
-			suitStr = "spades";
-			break;
-		default:
-			suitStr = "err";
-		}
-		
-		switch (rank) {
-			case JACK:
-				rankStr = "jack"; 
-				break;
-			case QUEEN:
-				rankStr = "queen";
-				break;
-			case KING:
-				rankStr = "king";
-				break;
-			case ACE:
-				rankStr = "ace";
-				break;
-			default:
-				rankStr = Integer.toString(getValue());
-		}*/
-		
 		return String.format("%s of %s\n", rank, suit);
+	}
+
+	@Override
+	public int compareTo(Card other) { //sort by suit, then by rank, ascending
+		return (this.suit.ordinal() - other.suit.ordinal()) * 13 
+				- (this.rank.ordinal() - other.rank.ordinal());
 	}
 }
