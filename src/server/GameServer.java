@@ -9,7 +9,7 @@ public class GameServer {
 	
 	public static final int PLAYERS_NEEDED = 3;
 	private Player[] players = new Player[PLAYERS_NEEDED];
-	
+
 	public static void main(String[] args) {
 		//initialize the deck and populate with one of each card
 		ArrayList<Card> deck = new ArrayList<>();
