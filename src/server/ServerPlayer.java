@@ -17,7 +17,7 @@ public class ServerPlayer extends Player {
 	InetAddress clientAddr;
 	int clientPort;
 	private DatagramSocket socket;
-	
+	private byte[] inPacket = new byte[]
 	private ServerPlayer(String name, InetAddress clientAddr, int clientPort, DatagramSocket socket) {		
 		super(name);
 		this.socket = socket;
@@ -41,23 +41,23 @@ public class ServerPlayer extends Player {
 		}
 	}
 	
-	public 
-	
-	void sendGameState(GameState game) {
+	public void sendGameState(GameState game) {
 		try {
 			ByteArrayOutputStream bOutStream = new ByteArrayOutputStream();
 			ObjectOutputStream objOutStream = new ObjectOutputStream(bOutStream);
 			objOutStream.writeObject(game);
 			byte[] data = bOutStream.toByteArray();
 			DatagramPacket sendPacket = new DatagramPacket(data, data.length, clientAddr, clientPort);
-			Socket.send
+			socket.send(sendPacket);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 	
-	public GameState notifyAndAwaitTurn() {
-		
+	public GameState getGameState() {
+		try {
+			ByteArrayInputStream bInStream = new ByteArrayInputStream
+		}
 	}
 	
 	
