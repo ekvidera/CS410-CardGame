@@ -3,6 +3,7 @@ package server;
 import java.util.ArrayList;
 import java.util.Random;
 
+import util.BasicPlayer;
 import util.Card;
 import util.Player;
 import util.Card.Rank;
@@ -13,7 +14,6 @@ public class Game {
 	public static final int PLAYERS_NEEDED = 3;
 	private ArrayList<ServerPlayer> sPlayers = new ArrayList<ServerPlayer>();
 	public int rounds;
-	protected GameState gState= new GameState();
 	private int player_turn=0;//player one
 	private int p1pos=0;
 	private int p2pos=1;
@@ -27,7 +27,7 @@ public class Game {
 
 		for (rounds=0; rounds<17; rounds++) {
 			for(int i=0; i<3; i++) {
-			sPlayers.get(player_turn).notifyAndAwaitPlayerTurn();
+			generateGameState(player_turn);
 			this.IncrementTurn();
 			}
 			this.FindWinner();
@@ -35,48 +35,90 @@ public class Game {
 		this.FindWinnerFinal();
 		
 	}
+	
+	private GameState generateGameState(int playerNum) {
+		if (playerNum == player_turn) {
+			return generateGameState(playerNum, GameState.Status.STATUS_YOUR_TURN);		
+		} else {
+			return generateGameState(playerNum, GameState.Status.STATUS_OTHER_PLAYERS_TURN);
+		}
+	}
+	
+	private GameState generateGameState(int playerNum, GameState.Status status) {
+		Card[] cards;
+		cards[0] = cards[(playerNum+1) % 3]; //left card
+		cards[1] = cards[playerNum]; //your card
+		cards[2] = cards[(playerNum+2) % 3]; //right card
+		Player thisPlayer = (Player) sPlayers.get(playerNum);
+		BasicPlayer leftPlayer = (BasicPlayer) sPlayers.get((playerNum + 1) % 3);
+		BasicPlayer rightPlayer = (BasicPlayer) sPlayers.get((playerNum + 2) % 3);
+		return new GameState(thisPlayer, leftPlayer, rightPlayer, cards, status);
+	}
+	
+	
+	
+	
 	public void FindWinnerFinal() {
 		int p1=sPlayers.get(0).getRoundsWon();
 		int p2=sPlayers.get(1).getRoundsWon();
 		int p3=sPlayers.get(2).getRoundsWon();
 		if(p1>p2&&p1>p3) {
-			gState.Status = STATUS_GAME_ENDED;
-			return ;
+			generateGameState(p1,GameState.Status.STATUS_GAME_WON);
+			generateGameState(p2,GameState.Status.STATUS_GAME_LOST);
+			generateGameState(p3,GameState.Status.STATUS_GAME_LOST);
 		}
 		else if(p2>p1&&p2>p3) {
-			gState.Status = STATUS_GAME_ENDED;
-			return ;
+			generateGameState(p2,GameState.Status.STATUS_GAME_WON);
+			generateGameState(p1,GameState.Status.STATUS_GAME_LOST);
+			generateGameState(p3,GameState.Status.STATUS_GAME_LOST);
 		}
 		else if(p3>p1&&p3>p2) {
-			gState.Status = STATUS_GAME_ENDED;
-			return ;
+			generateGameState(p3,GameState.Status.STATUS_GAME_WON);
+			generateGameState(p2,GameState.Status.STATUS_GAME_LOST);
+			generateGameState(p1,GameState.Status.STATUS_GAME_LOST);
 		}
-		else
-			gState.Status = STATUS_GAME_ENDED;
+		else {
+			generateGameState(p1,GameState.Status.STATUS_GAME_DISCONNECTED);
+			generateGameState(p2,GameState.Status.STATUS_GAME_DISCONNECTED);
+			generateGameState(p3,GameState.Status.STATUS_GAME_DISCONNECTED);
+		}
 	}
+	
+	
 	public void FindWinner() {
-		Card p1=gState.cardsOnTable[0];
-		Card p2=gState.cardsOnTable[1];
-		Card p3=gState.cardsOnTable[2];
+		GameState currentState;
+		Card[] cardsOnTable = currentState.getCardsOnTable();
+		Card p1=cardsOnTable[0];
+		Card p2=cardsOnTable[1];
+		Card p3=cardsOnTable[2];
+		int p1Val=p1.getValue();
+		int p2Val=p2Val;
+		int p3Val=p3Val;
+		Card start=cardsOnTable[player_turn];
+		if(p1.getSuit()!=start.getSuit())
+			p1Val=0;
+		if(p2.getSuit()!=start.getSuit())
+			p2Val=0;	
+		if(p3.getSuit()!=start.getSuit())
+			p3Val=0;
 		
-		
-		if(p1.getValue()>p2.getValue()&&p1.getValue()>p3.getValue()) {
-			sPlayers.get(p1pos).addCardsWon(gState.cardsOnTable<>);
+		if(p1Val>p2Val&&p1Val>p3Val) {
+			sPlayers.get(p1pos).addCardsWon(cardsOnTable);
 			sPlayers.get(p1pos).setRoundsWon(sPlayers.get(p1pos).getRoundsWon()+1);	
 			player_turn=p1pos;
 		}
-		else if(p2.getValue()>p1.getValue()&&p2.getValue()>p3.getValue()) {
-			sPlayers.get(p2pos).addCardsWon(gState.cardsOnTable<>);
+		else if(p2Val>p1Val&&p2Val>p3Val) {
+			sPlayers.get(p2pos).addCardsWon(cardsOnTable);
 			sPlayers.get(p2pos).setRoundsWon(sPlayers.get(p2pos).getRoundsWon()+1);	
 			player_turn=p2pos;
 		}
-		else if(p3.getValue()>p2.getValue()&&p3.getValue()>p1.getValue()) {
-			sPlayers.get(p3pos).addCardsWon(gState.cardsOnTable<>);
+		else if(p3Val>p2Val&&p3Val>p1Val) {
+			sPlayers.get(p3pos).addCardsWon(cardsOnTable);
 			sPlayers.get(p3pos).setRoundsWon(sPlayers.get(p3pos).getRoundsWon()+1);	
 			player_turn=p3pos;
 		}
 		else
-			gState.Status = STATUS_GAME_ENDED;
+			gState.status = STATUS_GAME_ENDED;
 	}
 	public void IncrementTurn() {
 		player_turn++;
