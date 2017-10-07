@@ -10,7 +10,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
 import java.awt.Container;
-import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -19,26 +18,22 @@ import java.awt.MediaTracker;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowListener;
-import java.io.File;
-import java.io.IOException;
 import java.awt.BorderLayout;
 
 import javax.swing.border.LineBorder;
-
 import javax.swing.border.EtchedBorder;
 import java.awt.Color;
 import java.awt.Container;
 
 
-public class UserInterface extends JFrame implements ActionListener{
+public class MainMenu extends JFrame{
 
 public static void main(String[] args){
-UserInterface frame = new UserInterface();
+MainMenu frame = new MainMenu();
 
 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 frame.setBounds(10,10,650,650);
-frame.setTitle("Sample!!!");
+frame.setTitle("MainMenu");
 frame.setVisible(true);
 frame.setSize(new Dimension(640, 420));
 frame.setResizable(false);
@@ -57,27 +52,31 @@ h.add(label1);
 }
 
 
-public UserInterface(){
+MainMenu(){
 	
     ImageIcon icon1 = new ImageIcon("resources/mainmenu/NewGame.png");
     JButton button1 = new JButton(icon1);
-    button1.addActionListener(this);
+    ImageIcon r_icon1 = new ImageIcon("resources/mainmenu/NewGame_H.png");
     button1.setBounds(210, 130, 220, 70);
+    button1.setRolloverIcon(r_icon1);
     
     ImageIcon icon3 = new ImageIcon("resources/mainmenu/Rules.png");
     JButton button3 = new JButton(icon3);
-    button3.addActionListener(this);
+    ImageIcon r_icon3 = new ImageIcon("resources/mainmenu/Rules_H.png");
     button3.setBounds(210, 210, 220, 70);
+    button3.setRolloverIcon(r_icon3);
 
     ImageIcon icon4 = new ImageIcon("resources/mainmenu/Credit.png");
     JButton button4 = new JButton(icon4);
-    button4.addActionListener(this);
+    ImageIcon r_icon4 = new ImageIcon("resources/mainmenu/Credit_H.png");
     button4.setBounds(210, 290, 100, 70);
+    button4.setRolloverIcon(r_icon4);
     
     ImageIcon icon2 = new ImageIcon("resources/mainmenu/Quit.png");
     JButton button2 = new JButton(icon2);
-    button2.addActionListener(this);
+    ImageIcon r_icon2 = new ImageIcon("resources/mainmenu/Quit_H.png");
     button2.setBounds(330, 290, 100, 70);
+    button2.setRolloverIcon(r_icon2);
 	
 
 
@@ -93,23 +92,6 @@ p.add(button3);
 p.add(button4);
 
 getContentPane().add(p, BorderLayout.CENTER);
-}
-
-
-@Override
-public void actionPerformed(ActionEvent e) {
-	// TODO Auto-generated method stub
-	//JButton src = (JButton)e.getSource();
-	System.out.println(e.getSource().toString());
-	if(e.getSource().equals())
-		if (Desktop.isDesktopSupported()) {
-		    try {
-		        File myFile = new File("resources/Rules.pdf");
-		        Desktop.getDesktop().open(myFile);
-		    } catch (IOException ex) {
-		        // no application registered for PDFs
-		    }
-		}	
 }
 }
 
@@ -129,6 +111,27 @@ super.paint(g);
 this.setSize(new Dimension(640,400));
 }
 
+class NewGame implements ActionListener {
+	public void actionPerformed(ActionEvent e) {
+		
+	}
+}
+class Rules implements ActionListener {
+	public void actionPerformed(ActionEvent e) {
+		
+	}
+}
 
+class Quit implements ActionListener {
+	public void actionPerformed(ActionEvent e) {
+		
+	}
+}
+
+class NewGam implements ActionListener {
+	public void actionPerformed(ActionEvent e) {
+		
+	}
+}
 
 }

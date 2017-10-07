@@ -8,8 +8,8 @@ public class Client {
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		UserInterface gui = new UserInterface();
-		gui.display();
+		MainMenu gui = new MainMenu();
+	//	gui.display();
 		System.out.println("GUI made");
 	}
 
