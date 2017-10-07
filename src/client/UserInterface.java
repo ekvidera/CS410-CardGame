@@ -24,7 +24,6 @@ import javax.swing.border.LineBorder;
 import javax.swing.border.EtchedBorder;
 import java.awt.Color;
 import java.awt.Container;
-import client.resource.*;
 
 
 public class UserInterface extends JFrame{
