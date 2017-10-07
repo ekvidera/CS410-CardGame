@@ -20,8 +20,10 @@ public class Player extends BasicPlayer {
 		this.hand = hand;
 	}
 	
-	public void addCardsWon(ArrayList<Card> cardsWon) {
-		this.cardsWon.addAll(cardsWon);
+	public void addCardsWon(Card[] cardsWon) {
+		for (Card card : cardsWon) {
+			this.cardsWon.add(card);
+		}
 	}
 
 }

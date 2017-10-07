@@ -6,8 +6,18 @@ public class GameState implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
-	public Status status;
+	public GameState(Player thisPlayer, BasicPlayer leftPlayer,
+			BasicPlayer rightPlayer, Card[] cardsOnTable, Status status) {
+		
+		this.thisPlayer = thisPlayer;
+		this.leftPlayer = leftPlayer;
+		this.rightPlayer = rightPlayer;
+		this.cardsOnTable = cardsOnTable;
+		this.status = status;
+	}
 	
+	Status status;
+
 	Player thisPlayer;
 	BasicPlayer leftPlayer;
 	BasicPlayer rightPlayer;
