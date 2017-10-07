@@ -10,6 +10,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
 import java.awt.Container;
+import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -18,15 +19,19 @@ import java.awt.MediaTracker;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowListener;
+import java.io.File;
+import java.io.IOException;
 import java.awt.BorderLayout;
 
 import javax.swing.border.LineBorder;
+
 import javax.swing.border.EtchedBorder;
 import java.awt.Color;
 import java.awt.Container;
 
 
-public class UserInterface extends JFrame{
+public class UserInterface extends JFrame implements ActionListener{
 
 public static void main(String[] args){
 UserInterface frame = new UserInterface();
@@ -52,21 +57,22 @@ h.add(label1);
 }
 
 
-UserInterface(){
+public UserInterface(){
 	
-    ImageIcon icon1 = new ImageIcon("resources/NewGame.png");
+    ImageIcon icon1 = new ImageIcon("resources/mainmenu/NewGame.png");
     JButton button1 = new JButton(icon1);
     button1.setBounds(210, 130, 220, 70);
     
-    ImageIcon icon3 = new ImageIcon("resources/Rules.png");
+    ImageIcon icon3 = new ImageIcon("resources/mainmenu/Rules.png");
     JButton button3 = new JButton(icon3);
+    button3.addActionListener(this);
     button3.setBounds(210, 210, 220, 70);
 
-    ImageIcon icon4 = new ImageIcon("resources/Credit.png");
+    ImageIcon icon4 = new ImageIcon("resources/mainmenu/Credit.png");
     JButton button4 = new JButton(icon4);
     button4.setBounds(210, 290, 100, 70);
     
-    ImageIcon icon2 = new ImageIcon("resources/Quit.png");
+    ImageIcon icon2 = new ImageIcon("resources/mainmenu/Quit.png");
     JButton button2 = new JButton(icon2);
     button2.setBounds(330, 290, 100, 70);
 	
@@ -85,6 +91,21 @@ p.add(button4);
 
 getContentPane().add(p, BorderLayout.CENTER);
 }
+
+
+@Override
+public void actionPerformed(ActionEvent e) {
+	// TODO Auto-generated method stub
+		System.out.println("HALLO! REMOVE ME IM IN THE RULES CLASS");
+		if (Desktop.isDesktopSupported()) {
+		    try {
+		        File myFile = new File("resources/Rules.pdf");
+		        Desktop.getDesktop().open(myFile);
+		    } catch (IOException ex) {
+		        // no application registered for PDFs
+		    }
+		}	
+}
 }
 
 
@@ -92,7 +113,7 @@ class MenuPanel extends JPanel {
 Image backgroundImage;
 
 MenuPanel() {
-backgroundImage = Toolkit.getDefaultToolkit().createImage("resources/Background_withTitle.jpg"); 
+backgroundImage = Toolkit.getDefaultToolkit().createImage("resources/mainmenu/Background_withTitle.jpg"); 
 setOpaque(false); 
 }
 
@@ -103,27 +124,6 @@ super.paint(g);
 this.setSize(new Dimension(640,400));
 }
 
-class NewGame implements ActionListener {
-	public void actionPerformed(ActionEvent e) {
-		
-	}
-}
-class Rules implements ActionListener {
-	public void actionPerformed(ActionEvent e) {
-		
-	}
-}
 
-class Quit implements ActionListener {
-	public void actionPerformed(ActionEvent e) {
-		
-	}
-}
-
-class NewGam implements ActionListener {
-	public void actionPerformed(ActionEvent e) {
-		
-	}
-}
 
 }
