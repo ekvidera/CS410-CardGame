@@ -56,19 +56,27 @@ MainMenu(){
 	
     ImageIcon icon1 = new ImageIcon("resources/mainmenu/NewGame.png");
     JButton button1 = new JButton(icon1);
+    ImageIcon r_icon1 = new ImageIcon("resources/mainmenu/NewGame_H.png");
     button1.setBounds(210, 130, 220, 70);
+    button1.setRolloverIcon(r_icon1);
     
     ImageIcon icon3 = new ImageIcon("resources/mainmenu/Rules.png");
     JButton button3 = new JButton(icon3);
+    ImageIcon r_icon3 = new ImageIcon("resources/mainmenu/Rules_H.png");
     button3.setBounds(210, 210, 220, 70);
+    button3.setRolloverIcon(r_icon3);
 
     ImageIcon icon4 = new ImageIcon("resources/mainmenu/Credit.png");
     JButton button4 = new JButton(icon4);
+    ImageIcon r_icon4 = new ImageIcon("resources/mainmenu/Credit_H.png");
     button4.setBounds(210, 290, 100, 70);
+    button4.setRolloverIcon(r_icon4);
     
     ImageIcon icon2 = new ImageIcon("resources/mainmenu/Quit.png");
     JButton button2 = new JButton(icon2);
+    ImageIcon r_icon2 = new ImageIcon("resources/mainmenu/Quit_H.png");
     button2.setBounds(330, 290, 100, 70);
+    button2.setRolloverIcon(r_icon2);
 	
 
 
