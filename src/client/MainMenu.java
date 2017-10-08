@@ -52,7 +52,7 @@ h.add(label1);
 	JButton button2;
 	JButton button3;
 	JButton button4;
-
+	
 
 
 	public MainMenu(){
