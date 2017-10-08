@@ -19,7 +19,7 @@ public class Client extends NetworkPlayer {
 		super(name, socket, srvConnectionAddr, srvConnectionPort);
 	}
 	
-	public void blergh() {
+	public void startClientGameLoop() {
 		while (true) {
 			receiveGameState();
 			switch(this.getGameState().getStatus()) {
