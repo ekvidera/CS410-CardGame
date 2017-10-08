@@ -42,7 +42,7 @@ public class Client extends NetworkPlayer {
 			System.out.printf("Client %s: Received server response: %s\n", name, msg);
 			
 			if (msg.equals("connectionOK")) {
-				System.out.printf("Client %s: Connection made with server %s on port %d", name, addr.toString(), port);
+				System.out.printf("Client %s: Connection made with server %s on port %d\n", name, addr.toString(), port);
 				return new Client(name, socket, addr, port);				
 			} else {
 				System.out.println("Received bad server response");

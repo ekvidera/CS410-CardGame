@@ -22,7 +22,9 @@ public class NetworkingTest {
 			t.start();
 
 			InetAddress addr = InetAddress.getByName("127.0.0.1");
-			Client client = Client.initializeClient("JimBob", addr, 5000);
+			Client client1 = Client.initializeClient("JimBob", addr, 5000);
+			Client client2 = Client.initializeClient("Jehovah", addr, 5000);
+			Client client3 = Client.initializeClient("JamesRobert", addr, 5000);
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

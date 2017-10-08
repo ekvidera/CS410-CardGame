@@ -21,6 +21,8 @@ public class Server {
 	public static void initializePlayers() throws SocketException {
 		socket = new DatagramSocket(SERVER_PORT);
 		players.add(ServerPlayer.awaitPlayerConnection(socket));
+		players.add(ServerPlayer.awaitPlayerConnection(socket));
+		players.add(ServerPlayer.awaitPlayerConnection(socket));
 	}
 	
 	public static void main() {
