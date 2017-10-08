@@ -4,7 +4,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import client.MainMenu.ButtonListener;
+import client.MainMenu.*;
+import util.GameState;
+
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.EventQueue;
@@ -21,6 +23,10 @@ public class GameUI extends JFrame{
 	
 	private static final Component Component = null;
 	String text1;
+	
+	MainMenu ClientName
+	ClientName = new MainMenu();
+	
 
 public static void main(String[] args){
 GameUI frame = new GameUI();
@@ -44,13 +50,19 @@ EventQueue.invokeLater(new Runnable(){
 
 }
 
+void renderGameState(GameState g) {
+	g.getLeftPlayer().getName();
+	g.getThisPlayer().getName();
+	g.getRightPlaer().
+}
 GameUI(){
     JPanel g = new JPanel();
     
     
    
   
-	MainMenu bListner = new MainMenu().;
+	
+	
    
     
     //text1 = ButtonListener.clientName;
