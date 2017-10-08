@@ -24,7 +24,27 @@ public class Game {
 	}
 	
 	public void GameLoop() {
-
+		//initialize the deck and populate with one of each card
+		ArrayList<Card> deck = new ArrayList<>();
+		for(Rank ra : Rank.values()) {
+			for(Suit su :Suit.values()) {
+				Card card = new Card(ra, su);
+				deck.add(card);
+			}
+		}	
+		
+		Random rand = new Random();
+		for (int p = 0; p<PLAYERS_NEEDED; p++) {
+			
+			ArrayList<Card> hand = new ArrayList<>(); 
+			for(int i=0;i<17;i++)
+			{
+				int e=rand.nextInt(deck.size());
+				hand.add(deck.get(e));
+				deck.remove(e);
+			}
+			sPlayers.get(p).setHand(hand);
+		}
 		for (rounds=0; rounds<17; rounds++) {
 			for(int i=0; i<3; i++) {
 			generateGameState(player_turn);
@@ -86,14 +106,14 @@ public class Game {
 	
 	
 	public void FindWinner() {
-		GameState currentState;
+		GameState currentState=sPlayers.getSate();
 		Card[] cardsOnTable = currentState.getCardsOnTable();
 		Card p1=cardsOnTable[0];
 		Card p2=cardsOnTable[1];
 		Card p3=cardsOnTable[2];
 		int p1Val=p1.getValue();
-		int p2Val=p2Val;
-		int p3Val=p3Val;
+		int p2Val=p2.getValue();
+		int p3Val=p3.getValue();
 		Card start=cardsOnTable[player_turn];
 		if(p1.getSuit()!=start.getSuit())
 			p1Val=0;
@@ -118,7 +138,9 @@ public class Game {
 			player_turn=p3pos;
 		}
 		else
-			gState.status = STATUS_GAME_ENDED;
+			generateGameState(p1pos,GameState.Status.STATUS_GAME_DISCONNECTED);
+			generateGameState(p2pos,GameState.Status.STATUS_GAME_DISCONNECTED);
+			generateGameState(p3pos,GameState.Status.STATUS_GAME_DISCONNECTED);
 	}
 	public void IncrementTurn() {
 		player_turn++;
