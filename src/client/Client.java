@@ -9,6 +9,7 @@ import java.net.InetAddress;
 
 import javax.swing.JOptionPane;
 
+import util.GameState;
 import util.NetworkPlayer;
 
 public class Client extends NetworkPlayer {
@@ -23,20 +24,30 @@ public class Client extends NetworkPlayer {
 	}
 	
 	public void startClientGameLoop() {
+		GameUI board = new GameUI();
+		board.setTitle(getName());
 		while (true) {
+			System.out.println("Waiting for gamestate");
 			receiveGameState();
+			System.out.println("reciving gamestate");
+			board.setGameState(this.gameState);
+			board.revalidate();
+			board.repaint();
+			System.out.println("repaint board");
 			switch(this.getGameState().getStatus()) {
 			case STATUS_YOUR_TURN:
 				System.out.println(this.getName()+"It's my turn");
+				pickCard();
 				this.gameState.setCardsOnTable(this.getHand().get(selectedCard));
 				//System.out.println("I played this card "+this.getHand().get(selectedCard));
 				this.getHand().remove(selectedCard);
 				this.setHand(this.getHand());
+				board.repaint();
 				System.out.println(this.getHand().toString());
 				this.sendGameState();
 				break;
 			case STATUS_OTHER_PLAYERS_TURN:
-				System.out.println(this.getName()+" It's not my turn");				
+				System.out.println(this.getName()+" It's not my turn");	
 				break;
 			case STATUS_GAME_WON:
 				System.out.println(this.getName()+"I won");

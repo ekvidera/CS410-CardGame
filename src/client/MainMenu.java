@@ -122,11 +122,11 @@ h.add(label1);
 					String addressStr = JOptionPane.showInputDialog("Enter server address");
 					try {
 						addr = InetAddress.getByName(addressStr);
-
 						//System.out.println("about to initalize clients");
 						MainMenu.this.setVisible(false);
 						//GameUI board = new GameUI(); 
 						Client c = Client.initializeClient(clientName, addr, 5000);
+						c.startClientGameLoop();
 					} catch(UnknownHostException uhe) {
 						JOptionPane.showMessageDialog(null,"Could not resolve hostname '"+addressStr+"'");
 					}
