@@ -45,12 +45,16 @@ public class Game {
 			}
 			sPlayers.get(p).setHand(hand);
 		}
+		GameState currentState= generateGameState(player_turn);
 		for (rounds=0; rounds<17; rounds++) {
-			for(int i=0; i<3; i++) {
-			generateGameState(player_turn);
+			for(int p=0; p<3; p++) {
+				for(int i=0; i<3;i++) {
+					sPlayers.get(i).sendGameState(generateGameState(i));
+				}
+				currentState =sPlayers.get(player_turn).getGameState();
 			this.IncrementTurn();
 			}
-			this.FindWinner();
+			this.FindWinner(currentState);
 		}
 		this.FindWinnerFinal();
 		
@@ -65,7 +69,7 @@ public class Game {
 	}
 	
 	private GameState generateGameState(int playerNum, GameState.Status status) {
-		Card[] cards;
+		Card[] cards =null;
 		cards[0] = cards[(playerNum+1) % 3]; //left card
 		cards[1] = cards[playerNum]; //your card
 		cards[2] = cards[(playerNum+2) % 3]; //right card
@@ -105,8 +109,8 @@ public class Game {
 	}
 	
 	
-	public void FindWinner() {
-		GameState currentState=sPlayers.getSate();
+	public void FindWinner(GameState currentState) {
+		
 		Card[] cardsOnTable = currentState.getCardsOnTable();
 		Card p1=cardsOnTable[0];
 		Card p2=cardsOnTable[1];
