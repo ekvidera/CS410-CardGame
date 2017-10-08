@@ -3,6 +3,7 @@ package client;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.Icon;
@@ -21,6 +22,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.awt.BorderLayout;
 
 import javax.swing.border.LineBorder;
@@ -31,17 +34,8 @@ import java.awt.Container;
 
 public class MainMenu extends JFrame {
 
-	public static void main(String[] args){
-		MainMenu frame = new MainMenu();
 
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setBounds(10,10,650,650);
-		frame.setTitle("MainMenu");
-		frame.setVisible(true);
-		frame.setSize(new Dimension(640, 420));
-		frame.setResizable(false);
-		JPanel h = new JPanel();
-		h.setOpaque(false);
+
 		/*
 ImageIcon icon1 = new ImageIcon("Mati.jpg");
 
@@ -52,7 +46,7 @@ JLabel label2 = new JLabel();
 h.add(label1);
 		 */
 
-	}
+	
 
 	JButton button1;
 	JButton button2;
@@ -62,6 +56,14 @@ h.add(label1);
 
 
 	public MainMenu(){
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setBounds(10,10,650,650);
+		this.setTitle("MainMenu");
+		this.setVisible(true);
+		this.setSize(new Dimension(640, 420));
+		this.setResizable(false);
+		JPanel h = new JPanel();
+		h.setOpaque(false);
 		ButtonListener bl = new ButtonListener();
 		ImageIcon icon1 = new ImageIcon("resources/mainmenu/NewGame.png");
 		button1 = new JButton(icon1);
@@ -115,6 +117,16 @@ h.add(label1);
 				//System.out.println(e.getSource().toString());
 				if(e.getSource() == button1) {
 					System.out.println("MAKES A NEW GAME");
+					InetAddress addr;
+					String clientName = JOptionPane.showInputDialog("Enter your nickname:");
+					String addressStr = JOptionPane.showInputDialog("Enter server address");
+					try {
+						addr = InetAddress.getByName(addressStr);
+						Client c = Client.initializeClient(clientName, addr, 5000);
+					} catch(UnknownHostException uhe) {
+						JOptionPane.showMessageDialog(null,"Could not resolve hostname '"+addressStr+"'");
+					}
+
 				}
 				if(e.getSource() == button2) {
 					System.exit(0);

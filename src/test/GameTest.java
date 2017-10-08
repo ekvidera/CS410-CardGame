@@ -25,16 +25,34 @@ public class GameTest {
 		InetAddress addr;
 		try {
 			addr = InetAddress.getByName("127.0.0.1");
-
-			for (int i=0; i<3; i++) {
 				new Thread(new Runnable() {
 					@Override
 					public void run() {
-						Client c = Client.initializeClient("Client", addr, 5000);
+						Client c = Client.initializeClient("Client1", addr, 5000);
 						c.receiveGameState();
+						System.out.println(c.getName() +"'s board state");
 						System.out.println(Arrays.toString(c.getGameState().getCardsOnTable()));
+						System.out.println(c.getHand().toString());
 					}}).start();
-			}
+				new Thread(new Runnable() {
+					@Override
+					public void run() {
+						Client c = Client.initializeClient("Client2", addr, 5000);
+						c.receiveGameState();
+						System.out.println(c.getName() +"'s board state");
+						System.out.println(Arrays.toString(c.getGameState().getCardsOnTable()));
+						System.out.println(c.getHand().toString());
+					}}).start();
+				new Thread(new Runnable() {
+					@Override
+					public void run() {
+						Client c = Client.initializeClient("Client3", addr, 5000);
+						c.receiveGameState();
+						System.out.println(c.getName() +"'s board state");
+						System.out.println(Arrays.toString(c.getGameState().getCardsOnTable()));
+						System.out.println(c.getHand().toString());
+					}}).start();
+			
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

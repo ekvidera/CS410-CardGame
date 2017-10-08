@@ -19,6 +19,8 @@ public class Game {
 	private int p1pos=0;
 	private int p2pos=1;
 	private int p3pos=2;
+	
+	private Card[] cardsOnTable = new Card[3];
 	public Game(ArrayList<ServerPlayer> serverPlayers)
 	{
 		sPlayers = serverPlayers;
@@ -46,8 +48,9 @@ public class Game {
 				deck.remove(e);
 			}
 			sPlayers.get(p).setHand(hand);
+			cardsOnTable[p] = hand.get(0);
 			System.out.println("player "+p+" has a hand");
-			System.out.println(sPlayers.get(p).getHand().toString());
+			//System.out.println(sPlayers.get(p).getHand().toString());
 		}
 		System.out.println("making gamestate");
 		GameState currentState= generateGameState(player_turn);
@@ -57,13 +60,15 @@ public class Game {
 			for(int p=0; p<3; p++) {
 				System.out.println("Player turn "+p);
 				for(int i=0; i<3;i++) {
-					sPlayers.get(i).sendGameState(generateGameState(i));
-					System.out.println("I sent this game state"+sPlayers.get(i).getGameState().toString()+" to player "+i);
+					sPlayers.get(i).setGameState(generateGameState(i));
+					sPlayers.get(i).sendGameState();
+					System.out.println("I sent this game state to player "+i+" "+sPlayers.get(i).getName());
 				}
 				ServerPlayer currentPlayer = sPlayers.get(player_turn);
 				currentPlayer.receiveGameState();
 				currentState = currentPlayer.getGameState();
 			this.IncrementTurn();
+			System.out.println("I Incremented turn");
 			}
 			this.FindWinner(currentState);
 		}
@@ -81,9 +86,9 @@ public class Game {
 	
 	private GameState generateGameState(int playerNum, GameState.Status status) {
 		Card[] cards = new Card[3];
-		cards[0] = cards[(playerNum+1) % 3]; //left card
-		cards[1] = cards[playerNum]; //your card
-		cards[2] = cards[(playerNum+2) % 3]; //right card
+		cards[0] = cardsOnTable[(playerNum+1) % 3]; //left card
+		cards[1] = cardsOnTable[playerNum]; //your card
+		cards[2] = cardsOnTable[(playerNum+2) % 3]; //right card
 		Player thisPlayer = (Player) sPlayers.get(playerNum);
 		BasicPlayer leftPlayer = (BasicPlayer) sPlayers.get((playerNum + 1) % 3);
 		BasicPlayer rightPlayer = (BasicPlayer) sPlayers.get((playerNum + 2) % 3);

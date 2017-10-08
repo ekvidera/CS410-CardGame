@@ -29,14 +29,19 @@ public class NetworkPlayer extends Player {
 		this.destPort = destPort;
 	}
 	
-	public void sendGameState(GameState game) {
-		sendData(game, this.socket, destAddr, destPort);
+	public void sendGameState() {
+		sendData(this.gameState, this.socket, destAddr, destPort);
 	}
 	
 	public void receiveGameState() {
 		Object dataObj = receiveData(this.socket);
 		GameState gState = (GameState) dataObj;
 		this.gameState = gState;
+		this.setHand(gameState.getThisPlayer().getHand());
+	}
+	
+	public void setGameState(GameState game) {
+		this.gameState = game;
 	}
 	
 	public GameState getGameState() {
