@@ -20,9 +20,7 @@ public class Server {
 	
 	public void initializePlayers() throws SocketException {
 		socket = new DatagramSocket(SERVER_PORT);
-		System.out.println("Awaiting Player connection");
 		players.add(ServerPlayer.awaitPlayerConnection(socket));
-		System.out.println("Player connected");
 	}
 	
 	
