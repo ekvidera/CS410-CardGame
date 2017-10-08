@@ -37,9 +37,10 @@ public class Client extends NetworkPlayer {
 			switch(this.getGameState().getStatus()) {
 			case STATUS_YOUR_TURN:
 				System.out.println(this.getName()+"It's my turn");
+				//board.text1.equals(this.getName()+"It's my turn");
 				pickCard();
 				this.gameState.setCardsOnTable(this.getHand().get(selectedCard));
-				//System.out.println("I played this card "+this.getHand().get(selectedCard));
+				System.out.println("I played this card "+this.getHand().get(selectedCard));
 				this.getHand().remove(selectedCard);
 				this.setHand(this.getHand());
 				board.repaint();
@@ -71,7 +72,7 @@ public class Client extends NetworkPlayer {
 		}
 	}
 	public void pickCard() {
-		 selectedCard=Integer.parseInt(JOptionPane.showInputDialog(this.getName()+" 	What Card?"));
+		 selectedCard=Integer.parseInt(JOptionPane.showInputDialog(getName()+" Play a card"));
 	}
 	
 	public static Client initializeClient(String name, InetAddress serverAddr, int serverPort) {

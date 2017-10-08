@@ -51,7 +51,7 @@ public class Game {
 			Collections.reverse(hand);
 			
 			sPlayers.get(p).setHand(hand);
-			cardsOnTable[p] = hand.get(0);
+			//cardsOnTable = sPlayers.get(p).getGameState().getCardsOnTable();
 			//System.out.println("player "+p+" has a hand");
 			//System.out.println(sPlayers.get(p).getHand().toString());
 		}
@@ -217,7 +217,7 @@ public class Game {
 	
 	public void FindWinner(GameState currentState) {
 		
-		Card[] cardsOnTable = currentState.getCardsOnTable();
+		//Card[] cardsOnTable = currentState.getCardsOnTable();
 		Card p1=cardsOnTable[0];
 		Card p2=cardsOnTable[1];
 		Card p3=cardsOnTable[2];
