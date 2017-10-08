@@ -19,6 +19,26 @@ public class Client extends NetworkPlayer {
 		super(name, socket, srvConnectionAddr, srvConnectionPort);
 	}
 	
+	public void blergh() {
+		while (true) {
+			receiveGameState();
+			switch(this.getGameState().getStatus()) {
+			case STATUS_YOUR_TURN:
+				break;
+			case STATUS_OTHER_PLAYERS_TURN:
+				break;
+			case STATUS_GAME_WON:
+				break;
+			case STATUS_GAME_LOST:
+				break;
+			case STATUS_GAME_TIED:
+				break;
+			default:
+				break;
+			}
+		}
+	}
+	
 	public static Client initializeClient(String name, InetAddress serverAddr, int serverPort) {
 		System.out.printf("Client %s: initializing\n", name);
 		try {
