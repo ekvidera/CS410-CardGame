@@ -47,10 +47,15 @@ public class Game {
 			}
 			sPlayers.get(p).setHand(hand);
 			System.out.println("player "+p+" has a hand");
+			System.out.println(sPlayers.get(p).getHand().toString());
 		}
+		System.out.println("making gamestate");
 		GameState currentState= generateGameState(player_turn);
+		System.out.println("I made a gamestate");
 		for (rounds=0; rounds<17; rounds++) {
+			System.out.println("Round "+(rounds+1));
 			for(int p=0; p<3; p++) {
+				System.out.println("Player turn "+p);
 				for(int i=0; i<3;i++) {
 					sPlayers.get(i).sendGameState(generateGameState(i));
 					System.out.println("I sent this game state"+sPlayers.get(i).getGameState().toString()+" to player "+i);
@@ -75,7 +80,7 @@ public class Game {
 	}
 	
 	private GameState generateGameState(int playerNum, GameState.Status status) {
-		Card[] cards =null;
+		Card[] cards = new Card[3];
 		cards[0] = cards[(playerNum+1) % 3]; //left card
 		cards[1] = cards[playerNum]; //your card
 		cards[2] = cards[(playerNum+2) % 3]; //right card

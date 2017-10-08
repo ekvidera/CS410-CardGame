@@ -17,6 +17,7 @@ public class GameTest {
 			public void run() {
 				try {
 					server.initializePlayers();
+					server.startGame();
 				} catch (SocketException e) {
 					e.printStackTrace();
 				}}}).start();
