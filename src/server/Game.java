@@ -16,7 +16,9 @@ public class Game {
 	private ArrayList<ServerPlayer> sPlayers = new ArrayList<ServerPlayer>();
 	public int rounds;
 	private int player_turn=0;//player one
-	
+	private int p1pos=0;
+	private int p2pos=1;
+	private int p3pos=2;
 	private Card[] cardsOnTable = new Card[3];
 	public Game(ArrayList<ServerPlayer> serverPlayers)
 	{
@@ -90,10 +92,13 @@ public class Game {
 		cards[0] = cardsOnTable[(playerNum+1) % 3]; //left card
 		cards[1] = cardsOnTable[playerNum]; //your card
 		cards[2] = cardsOnTable[(playerNum+2) % 3]; //right card
+		int pTurn = ((3 - player_turn) + 1 + playerNum) % 3;
 		Player thisPlayer = (Player) sPlayers.get(playerNum);
 		BasicPlayer leftPlayer = (BasicPlayer) sPlayers.get((playerNum + 1) % 3);
 		BasicPlayer rightPlayer = (BasicPlayer) sPlayers.get((playerNum + 2) % 3);
-		return new GameState(thisPlayer, leftPlayer, rightPlayer, cards, status);
+		GameState g = new GameState(thisPlayer, leftPlayer, rightPlayer, cards, status);
+		g.setPlayerTurn(pTurn);
+		return g;
 	}
 	
 	
@@ -250,6 +255,12 @@ public class Game {
 	public void IncrementTurn() {
 		player_turn++;
 		player_turn=player_turn % 3;
+		p1pos++;
+		p1pos=p1pos %3;
+		p2pos++;
+		p2pos=p2pos %3;
+		p3pos++;
+		p3pos=p3pos %3;
 	}
 	
 }

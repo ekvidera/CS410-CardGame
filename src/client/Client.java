@@ -71,7 +71,7 @@ public class Client extends NetworkPlayer {
 		}
 	}
 	public void pickCard() {
-		 selectedCard=Integer.parseInt(JOptionPane.showInputDialog("What Card?"));
+		 selectedCard=Integer.parseInt(JOptionPane.showInputDialog(this.getName()+" 	What Card?"));
 	}
 	
 	public static Client initializeClient(String name, InetAddress serverAddr, int serverPort) {

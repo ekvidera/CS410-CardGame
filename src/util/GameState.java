@@ -23,6 +23,7 @@ public class GameState implements Serializable {
 	//leftPlayer's card, thisPlayer's card, rightPlayer's card
 	private Card[] cardsOnTable;
 	private Status status;
+	private int playerTurn; 
 	
 	public GameState(Player thisPlayer, BasicPlayer leftPlayer,
 			BasicPlayer rightPlayer, Card[] cardsOnTable, Status status) {
@@ -34,6 +35,13 @@ public class GameState implements Serializable {
 		this.status = status;
 	}
 	
+	public int getPlayerTurn() {
+		return this.playerTurn;
+	}
+	
+	public void setPlayerTurn(int pNum) {
+		this.playerTurn = pNum;
+	}
 	
 	public Player getThisPlayer() {
 		return thisPlayer;
@@ -42,7 +50,7 @@ public class GameState implements Serializable {
 	public BasicPlayer getLeftPlayer() {
 		return leftPlayer;
 	}
-
+	
 	public BasicPlayer getRightPlayer() {
 		return rightPlayer;
 	}
