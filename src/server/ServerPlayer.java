@@ -1,28 +1,17 @@
 package server;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import util.NetworkPlayer;
 
-import util.Player;
-import util.GameState;
-
-public class ServerPlayer extends Player {
+public class ServerPlayer extends NetworkPlayer {
 	
 	private static final long serialVersionUID = 1L;
 	
-	InetAddress clientAddr;
-	int clientPort;
-	private DatagramSocket socket;
-	private byte[] inPacket = new byte[]
-	private ServerPlayer(String name, InetAddress clientAddr, int clientPort, DatagramSocket socket) {		
-		super(name);
-		this.socket = socket;
-		this.clientAddr = clientAddr;
-		this.clientPort = clientPort;
+	private ServerPlayer(String name, DatagramSocket serverSocket, InetAddress clientAddr, int clientPort) {		
+		super(name, serverSocket, clientAddr, clientPort);
 	}
 	
 	public static ServerPlayer awaitPlayerConnection(DatagramSocket socket) {
@@ -30,36 +19,18 @@ public class ServerPlayer extends Player {
 		DatagramPacket recvClientInfo = 
 				new DatagramPacket(clientInfo, clientInfo.length);
 		try {
+			System.out.println("Awaiting player connection");
 			socket.receive(recvClientInfo);
 			InetAddress addr = recvClientInfo.getAddress();
 			int port = recvClientInfo.getPort();
-			String name = new String(recvClientInfo.getData(), 0, recvClientInfo.getLength());
-			return new ServerPlayer(name.trim(), addr, port, socket);
+			String name = new String(recvClientInfo.getData(), recvClientInfo.getOffset(), recvClientInfo.getLength());
+			System.out.println("Client connected:" + name);
+			DatagramSocket connectionSocket = new DatagramSocket();
+			sendData("connectionOK", connectionSocket, addr, port);
+			return new ServerPlayer(name.trim(), connectionSocket, addr, port);
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
 			return null;
 		}
 	}
-	
-	public void sendGameState(GameState game) {
-		try {
-			ByteArrayOutputStream bOutStream = new ByteArrayOutputStream();
-			ObjectOutputStream objOutStream = new ObjectOutputStream(bOutStream);
-			objOutStream.writeObject(game);
-			byte[] data = bOutStream.toByteArray();
-			DatagramPacket sendPacket = new DatagramPacket(data, data.length, clientAddr, clientPort);
-			socket.send(sendPacket);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public GameState getGameState() {
-		try {
-			ByteArrayInputStream bInStream = new ByteArrayInputStream
-		}
-	}
-	
-	
-	
 }
