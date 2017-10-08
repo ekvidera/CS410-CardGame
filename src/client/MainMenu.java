@@ -33,7 +33,7 @@ MainMenu frame = new MainMenu();
 
 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 frame.setBounds(10,10,650,650);
-frame.setTitle("MainMenu");
+frame.setTitle("Jellyfish Card Game");
 frame.setVisible(true);
 frame.setSize(new Dimension(640, 420));
 frame.setResizable(false);
