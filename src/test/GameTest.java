@@ -28,8 +28,8 @@ public class GameTest {
 				new Thread(new Runnable() {
 					@Override
 					public void run() {
-						Client c = Client.initializeClient("Client1", addr, 5000);
-						c.receiveGameState();
+						Client c = Client.initializeClient("Player 1", addr, 5000);
+						c.startClientGameLoop();
 						System.out.println(c.getName() +"'s board state");
 						System.out.println(Arrays.toString(c.getGameState().getCardsOnTable()));
 						System.out.println(c.getHand().toString());
@@ -37,8 +37,8 @@ public class GameTest {
 				new Thread(new Runnable() {
 					@Override
 					public void run() {
-						Client c = Client.initializeClient("Client2", addr, 5000);
-						c.receiveGameState();
+						Client c = Client.initializeClient("Player 2", addr, 5000);
+						c.startClientGameLoop();
 						System.out.println(c.getName() +"'s board state");
 						System.out.println(Arrays.toString(c.getGameState().getCardsOnTable()));
 						System.out.println(c.getHand().toString());
@@ -46,8 +46,8 @@ public class GameTest {
 				new Thread(new Runnable() {
 					@Override
 					public void run() {
-						Client c = Client.initializeClient("Client3", addr, 5000);
-						c.receiveGameState();
+						Client c = Client.initializeClient("Player 3", addr, 5000);
+						c.startClientGameLoop();
 						System.out.println(c.getName() +"'s board state");
 						System.out.println(Arrays.toString(c.getGameState().getCardsOnTable()));
 						System.out.println(c.getHand().toString());

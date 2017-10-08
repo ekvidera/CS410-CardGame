@@ -10,7 +10,7 @@ public class BasicPlayer implements Serializable {
 	private String name;
 	private int roundsWon;
 	private int qtyCardsInHand;
-	protected ArrayList<Card> cardsWon;
+	protected ArrayList<Card> cardsWon= new ArrayList<>();
 	
 	public BasicPlayer(String name) {
 		this.name = name;
