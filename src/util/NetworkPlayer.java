@@ -16,9 +16,9 @@ public class NetworkPlayer extends Player {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	protected DatagramSocket socket;
-	protected InetAddress destAddr;
-	protected int destPort;
+	protected transient DatagramSocket socket;
+	protected transient InetAddress destAddr;
+	protected transient int destPort;
 	
 	protected NetworkPlayer(String name, DatagramSocket socket, InetAddress destAddr, int destPort) {
 		super(name);

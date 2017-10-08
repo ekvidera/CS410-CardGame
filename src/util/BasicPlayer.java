@@ -15,7 +15,7 @@ public class BasicPlayer implements Serializable {
 	public BasicPlayer(String name) {
 		this.name = name;
 	}
-
+	
 	public int getRoundsWon() {
 		return roundsWon;
 	}
