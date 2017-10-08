@@ -122,7 +122,10 @@ h.add(label1);
 					String addressStr = JOptionPane.showInputDialog("Enter server address");
 					try {
 						addr = InetAddress.getByName(addressStr);
+						System.out.println("about to initalize clients");
 						Client c = Client.initializeClient(clientName, addr, 5000);
+						System.exit(0);
+						System.out.println("make a new gui");
 					} catch(UnknownHostException uhe) {
 						JOptionPane.showMessageDialog(null,"Could not resolve hostname '"+addressStr+"'");
 					}
