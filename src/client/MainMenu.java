@@ -48,12 +48,11 @@ h.add(label1);
 
 	
 
+
 	JButton newGameButton;
 	JButton quitGameButton;
 	JButton rulesButton;
 	JButton creditsButton;
-
-
 
 	public MainMenu(){
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -115,18 +114,19 @@ h.add(label1);
 
 			public void actionPerformed(ActionEvent e) {
 				//System.out.println(e.getSource().toString());
+
 				if(e.getSource() == newGameButton) {
-					//System.out.println("MAKES A NEW GAME");
+
 					InetAddress addr;
 					String clientName = JOptionPane.showInputDialog("Enter your nickname:");
 					String addressStr = JOptionPane.showInputDialog("Enter server address");
 					try {
 						addr = InetAddress.getByName(addressStr);
+
 						//System.out.println("about to initalize clients");
 						MainMenu.this.setVisible(false);
 						//GameUI board = new GameUI(); 
 						Client c = Client.initializeClient(clientName, addr, 5000);
-						//System.out.println("make a new gui");
 					} catch(UnknownHostException uhe) {
 						JOptionPane.showMessageDialog(null,"Could not resolve hostname '"+addressStr+"'");
 					}
