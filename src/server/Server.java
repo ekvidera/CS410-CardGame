@@ -7,36 +7,32 @@ import java.net.SocketException;
 import java.util.ArrayList;
 
 import util.GameState;
+import util.Player;
 
-public class Server extends GameState {
-	
+public class Server {
+
 	public static final int NUM_OF_PLAYERS = 3;
 	public static final int SERVER_PORT = 5000;
-	
+
 	private DatagramSocket socket;
-	
+
 	private ArrayList<ServerPlayer> players = new ArrayList<>();
-	
+
 	public void initializePlayers() throws SocketException {
-		
 		socket = new DatagramSocket(SERVER_PORT);
-		byte[] clientInfo = new byte[100];
-		DatagramPacket recvClientInfo = 
-				new DatagramPacket(clientInfo, clientInfo.length);
-		try {
-			for(int i=0; i<NUM_OF_PLAYERS; i++) {
-				socket.receive(recvClientInfo);
-				InetAddress addr = recvClientInfo.getAddress()
-			}
-			System.out.printf()
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		
-		
-		
+		players.add(ServerPlayer.awaitPlayerConnection(socket));
+		players.add(ServerPlayer.awaitPlayerConnection(socket));
+		players.add(ServerPlayer.awaitPlayerConnection(socket));
 	}
-	
-	
+
+	public void startGame() {
+		System.out.println("Initializing Players");
+		System.out.println("------------");
+		System.out.println("Players initialized");
+		Game game = new Game(players);
+		game.GameLoop();
+	}
+
+
+
 }
