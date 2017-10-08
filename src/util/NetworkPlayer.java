@@ -16,11 +16,11 @@ public class NetworkPlayer extends Player {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	protected DatagramSocket socket;
-	protected InetAddress destAddr;
-	protected int destPort;
-	protected GameState gameState;
-	
+	protected transient GameState gameState;
+	protected transient DatagramSocket socket;
+	protected transient InetAddress destAddr;
+	protected transient int destPort;
+
 	
 	protected NetworkPlayer(String name, DatagramSocket socket, InetAddress destAddr, int destPort) {
 		super(name);
