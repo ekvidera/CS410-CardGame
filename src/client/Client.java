@@ -6,6 +6,9 @@ import java.io.ObjectInputStream;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+
+import javax.swing.JOptionPane;
+
 import util.NetworkPlayer;
 
 public class Client extends NetworkPlayer {
@@ -14,7 +17,7 @@ public class Client extends NetworkPlayer {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
+	private int selectedCard=0;
 	private Client(String name, DatagramSocket socket, InetAddress srvConnectionAddr, int srvConnectionPort) {
 		super(name, socket, srvConnectionAddr, srvConnectionPort);
 	}
@@ -25,9 +28,9 @@ public class Client extends NetworkPlayer {
 			switch(this.getGameState().getStatus()) {
 			case STATUS_YOUR_TURN:
 				System.out.println(this.getName()+"It's my turn");
-				this.gameState.setCardsOnTable(this.getHand().get(0));
-				System.out.println("I played this card "+this.getHand().get(0));
-				this.getHand().remove(0);
+				this.gameState.setCardsOnTable(this.getHand().get(selectedCard));
+				//System.out.println("I played this card "+this.getHand().get(selectedCard));
+				this.getHand().remove(selectedCard);
 				this.setHand(this.getHand());
 				System.out.println(this.getHand().toString());
 				this.sendGameState();
@@ -46,10 +49,18 @@ public class Client extends NetworkPlayer {
 			case STATUS_GAME_TIED:
 				System.out.println(this.getName()+"I tied");
 				break;
+			case STATUS_GAME_DISCONNECTED:
+				JOptionPane.showMessageDialog(null, "Game Disconnected");
+				MainMenu mainmenu = new MainMenu();
+				mainmenu.setVisible(true);
+				break;
 			default:
 				break;
 			}
 		}
+	}
+	public void pickCard() {
+		 selectedCard=Integer.parseInt(JOptionPane.showInputDialog("What Card?"));
 	}
 	
 	public static Client initializeClient(String name, InetAddress serverAddr, int serverPort) {
