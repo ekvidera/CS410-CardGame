@@ -9,6 +9,7 @@ import util.Player;
 import util.Card.Rank;
 import util.Card.Suit;
 import util.GameState;
+import util.GameState.Status;
 
 public class Game {
 	public static final int PLAYERS_NEEDED = 3;
@@ -22,9 +23,10 @@ public class Game {
 	{
 		sPlayers = serverPlayers;
 	}
-	
+
 	public void GameLoop() {
 		//initialize the deck and populate with one of each card
+		System.out.println("Gameloop started");
 		ArrayList<Card> deck = new ArrayList<>();
 		for(Rank ra : Rank.values()) {
 			for(Suit su :Suit.values()) {
@@ -44,14 +46,18 @@ public class Game {
 				deck.remove(e);
 			}
 			sPlayers.get(p).setHand(hand);
+			System.out.println("player "+p+" has a hand");
 		}
 		GameState currentState= generateGameState(player_turn);
 		for (rounds=0; rounds<17; rounds++) {
 			for(int p=0; p<3; p++) {
 				for(int i=0; i<3;i++) {
 					sPlayers.get(i).sendGameState(generateGameState(i));
+					System.out.println("I sent this game state"+sPlayers.get(i).getGameState().toString()+" to player "+i);
 				}
-				currentState =sPlayers.get(player_turn).getGameState();
+				ServerPlayer currentPlayer = sPlayers.get(player_turn);
+				currentPlayer.receiveGameState();
+				currentState = currentPlayer.getGameState();
 			this.IncrementTurn();
 			}
 			this.FindWinner(currentState);

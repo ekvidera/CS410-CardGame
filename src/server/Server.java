@@ -14,14 +14,29 @@ public class Server {
 	public static final int NUM_OF_PLAYERS = 3;
 	public static final int SERVER_PORT = 5000;
 	
-	private DatagramSocket socket;
+	private static DatagramSocket socket;
 	
-	private ArrayList<ServerPlayer> players = new ArrayList<>();
+	private static ArrayList<ServerPlayer> players = new ArrayList<>();
 	
-	public void initializePlayers() throws SocketException {
+	public static void initializePlayers() throws SocketException {
 		socket = new DatagramSocket(SERVER_PORT);
 		players.add(ServerPlayer.awaitPlayerConnection(socket));
 	}
+	
+	public static void main() {
+		try {
+			initializePlayers();
+			Game game = new Game(players);
+			game.GameLoop();
+			
+			
+			
+			
+		} catch (SocketException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	
 	
 }

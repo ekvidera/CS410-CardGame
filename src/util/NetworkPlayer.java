@@ -19,6 +19,8 @@ public class NetworkPlayer extends Player {
 	protected DatagramSocket socket;
 	protected InetAddress destAddr;
 	protected int destPort;
+	protected GameState gameState;
+	
 	
 	protected NetworkPlayer(String name, DatagramSocket socket, InetAddress destAddr, int destPort) {
 		super(name);
@@ -31,10 +33,14 @@ public class NetworkPlayer extends Player {
 		sendData(game, this.socket, destAddr, destPort);
 	}
 	
-	public GameState getGameState() {
+	public void receiveGameState() {
 		Object dataObj = receiveData(this.socket);
 		GameState gState = (GameState) dataObj;
-		return gState;
+		this.gameState = gState;
+	}
+	
+	public GameState getGameState() {
+		return this.gameState;
 	}
 	
 	protected static DatagramPacket receivePacket(DatagramSocket socket) {

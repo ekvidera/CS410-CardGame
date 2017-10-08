@@ -19,8 +19,6 @@ public class Client extends NetworkPlayer {
 		super(name, socket, srvConnectionAddr, srvConnectionPort);
 	}
 	
-	
-
 	public static Client initializeClient(String name, InetAddress serverAddr, int serverPort) {
 		System.out.printf("Client %s: initializing\n", name);
 		try {
