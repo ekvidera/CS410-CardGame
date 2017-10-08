@@ -28,7 +28,7 @@ public class Game {
 
 	public void GameLoop() {
 		//initialize the deck and populate with one of each card
-		System.out.println("Gameloop started");
+		//System.out.println("Gameloop started");
 		ArrayList<Card> deck = new ArrayList<>();
 		for(Rank ra : Rank.values()) {
 			for(Suit su :Suit.values()) {
@@ -49,12 +49,12 @@ public class Game {
 			}
 			sPlayers.get(p).setHand(hand);
 			cardsOnTable[p] = hand.get(0);
-			System.out.println("player "+p+" has a hand");
+			//System.out.println("player "+p+" has a hand");
 			//System.out.println(sPlayers.get(p).getHand().toString());
 		}
-		System.out.println("making gamestate");
+		//System.out.println("making gamestate");
 		GameState currentState= generateGameState(player_turn);
-		System.out.println("I made a gamestate");
+		//System.out.println("I made a gamestate");
 		for (rounds=0; rounds<17; rounds++) {
 			System.out.println("Round "+(rounds+1));
 			for(int p=0; p<3; p++) {
@@ -62,13 +62,13 @@ public class Game {
 				for(int i=0; i<3;i++) {
 					sPlayers.get(i).setGameState(generateGameState(i));
 					sPlayers.get(i).sendGameState();
-					System.out.println("I sent this game state to player "+i+" "+sPlayers.get(i).getName());
+					//System.out.println("I sent this game state to player "+i+" "+sPlayers.get(i).getName());
 				}
 				ServerPlayer currentPlayer = sPlayers.get(player_turn);
 				currentPlayer.receiveGameState();
 				currentState = currentPlayer.getGameState();
 			this.IncrementTurn();
-			System.out.println("I Incremented turn");
+			//System.out.println("I Incremented turn");
 			}
 			this.FindWinner(currentState);
 		}
