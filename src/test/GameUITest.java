@@ -13,9 +13,11 @@ import util.Player;
 
 public class GameUITest {
 	public static void main(String[] args) throws InterruptedException {
-		GameUI g = new GameUI();
+		GameUI g = new GameUI(null);
 		Player p = new Player("testPlayer");
 		ArrayList<Card> Cards = new ArrayList<Card>();
+		Card[] cardsOnTable = new Card[] {null, new Card(Rank.ACE, Suit.DIAMONDS), new Card(Rank.JACK, Suit.HEARTS)};
+		
 		for (Card card : new Card[] {
 				new Card(Rank.ACE, Suit.SPADES),
 				new Card(Rank.QUEEN, Suit.HEARTS),
@@ -39,7 +41,8 @@ public class GameUITest {
 			Collections.sort(Cards);
 		}
 		p.setHand(Cards);
-		GameState gs = new GameState(p, (BasicPlayer) p, (BasicPlayer) p, null, null);
+		GameState gs = new GameState(p, (BasicPlayer) p, (BasicPlayer) p, cardsOnTable, null);
+		gs.setPlayerTurn(0);
 		
 
 		g.setGameState(gs);
