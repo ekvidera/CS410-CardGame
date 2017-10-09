@@ -95,8 +95,8 @@ class GamePanel extends JLayeredPane {
 
 	public void setGameState(GameState gameState) {
 		this.gameState = gameState;
-		this.messageLabel = new JLabel("Default message");
-		messageLabel.setBounds(400, 300, 200, 100);
+		this.messageLabel = new JLabel();
+		messageLabel.setBounds(400, 300, 400, 100);
 		messageLabel.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 20));
 		messageLabel.setVisible(true);
 		this.add(messageLabel, -1, -1);
@@ -136,8 +136,8 @@ class GamePanel extends JLayeredPane {
 
 		ImageIcon cardBackLeft = new ImageIcon("resources/cards/cardback2.png");
 		ImageIcon cardBackRight = new ImageIcon("resources/cards/cardback3.png");
-		renderGameState(gameState);
-		renderGameScore(gameState);
+		renderGameState(gameState); //Call to get Name
+		renderGameScore(gameState); //Call to get how many round won for each player
 		
 		int pLeftCards = this.gameState.getLeftPlayer().getQtyCardsInHand();
 		int pRightCards = this.gameState.getRightPlayer().getQtyCardsInHand();
@@ -163,7 +163,9 @@ class GamePanel extends JLayeredPane {
 	}
 
 
-	
+	/*
+	 * Get a score that how many round do they win
+	 */
 
 	private void renderGameScore(GameState g) {
 		
@@ -193,6 +195,10 @@ class GamePanel extends JLayeredPane {
 		
 		
 	}
+	
+	/*
+	 * Get each player's name on screen
+	 */
 
 	public void renderGameState(GameState g) {
 		

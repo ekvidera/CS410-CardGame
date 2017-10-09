@@ -76,6 +76,14 @@ public class Game {
 			this.FindWinner(currentState);//finds the winner of the round
 			for (int i = 0; i<3; i++) {
 				cardsOnTable[i] = null;//resets cards on table to null
+				sPlayers.get(i).setGameState(generateGameState(i, GameState.Status.STATUS_ROUND_END));
+				sPlayers.get(i).sendGameState();
+			}
+		
+			try {
+				Thread.sleep(2000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
 			}
 		}
 		this.FindWinnerFinal();//finds the winner of the game

@@ -13,6 +13,7 @@ public class GameState implements Serializable {
 	public enum Status {
 		STATUS_YOUR_TURN,
 		STATUS_OTHER_PLAYERS_TURN,
+		STATUS_ROUND_END,
 		STATUS_GAME_WON,
 		STATUS_GAME_LOST,
 		STATUS_GAME_TIED,

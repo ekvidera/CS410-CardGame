@@ -11,14 +11,14 @@ import util.Card;
  */
 
 public class CardButton extends JButton {
-	
+
 	private static final long serialVersionUID = 1L;//Manage version of Serialized class
 	private Card card; //Put Card for using card image
-	
 	public Card getCard() {
 		return this.card; //Return card if this method was called
 	}
 
+	//constructor
 	public CardButton(Card card) {
 		this.card = card;
 		String cardFileName = getCardFileName(card);
@@ -28,6 +28,7 @@ public class CardButton extends JButton {
 		this.setDisabledIcon(cardIcon);
 	}
 	
+
 	private String getCardFileName(Card card) {	//Get card's file name
 		String cardFileName = "";
 		
