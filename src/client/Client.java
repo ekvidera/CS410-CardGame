@@ -20,7 +20,7 @@ public class Client extends NetworkPlayer {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private int selectedCard=0;
+	
 	private Client(String name, DatagramSocket socket, InetAddress srvConnectionAddr, int srvConnectionPort) {
 		super(name, socket, srvConnectionAddr, srvConnectionPort);
 	}
@@ -35,6 +35,8 @@ public class Client extends NetworkPlayer {
 			board.setGameState(this.gameState);
 			board.revalidate();
 			board.repaint();
+			board.setVisible(false);
+			board.setVisible(true);
 			System.out.println("repaint board");
 			switch(this.getGameState().getStatus()) {
 			case STATUS_YOUR_TURN:
