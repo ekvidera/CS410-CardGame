@@ -114,8 +114,7 @@ public class MainMenu extends JFrame {
 					try {
 						addr = InetAddress.getByName(addressStr); //put IP
 						//System.out.println("about to initialize clients");
-						MainMenu.this.setVisible(false); //To distinguish MainMenu
-						//GameUI board = new GameUI(); 
+
 						new Thread(new Runnable() {
 
 							@Override
@@ -144,6 +143,9 @@ public class MainMenu extends JFrame {
 				}
 				if(e.getSource() ==creditsButton) { //When credit buttons are pushed,
 					System.out.println("A Team Jellyfish Production");
+					String credits="Credits";
+					ImageIcon iconj = new ImageIcon("resources/mainmenu/jellyfish.png");
+					JOptionPane.showMessageDialog(null,"A Team Jellyfish Production \n Addison Jenness \n Evan Kvidera \n Mizuho Takayama \n Megan Wefel", credits ,JOptionPane.PLAIN_MESSAGE, iconj);
 				}
 
 			}
