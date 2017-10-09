@@ -142,6 +142,9 @@ public class MainMenu extends JFrame {
 				}
 				if(e.getSource() ==creditsButton) { //When credit buttons are pushed,
 					System.out.println("A Team Jellyfish Production");
+					String credits="Credits";
+					ImageIcon iconj = new ImageIcon("resources/mainmenu/jellyfish.png");
+					JOptionPane.showMessageDialog(null,"A Team Jellyfish Production \n Addison Jenness \n Evan Kvidera \n Mizuho Takayama \n Megan Wefel", credits ,JOptionPane.PLAIN_MESSAGE, iconj);
 				}
 
 			}
