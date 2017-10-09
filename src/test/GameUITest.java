@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import client.GameUI;
+import util.BasicPlayer;
 import util.Card;
 import util.Card.Rank;
 import util.Card.Suit;
@@ -38,7 +39,7 @@ public class GameUITest {
 			Collections.sort(Cards);
 		}
 		p.setHand(Cards);
-		GameState gs = new GameState(p, null, null, null, null);
+		GameState gs = new GameState(p, (BasicPlayer) p, (BasicPlayer) p, null, null);
 		
 
 		g.setGameState(gs);
