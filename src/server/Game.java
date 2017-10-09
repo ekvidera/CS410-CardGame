@@ -40,24 +40,24 @@ public class Game {
 		Random rand = new Random();
 		for (int p = 0; p<PLAYERS_NEEDED; p++) {
 			
-			ArrayList<Card> hand = new ArrayList<>(); 
-			for(int i=0;i<17;i++)
+			ArrayList<Card> hand = new ArrayList<>(); //creates a new arraylist hand
+			for(int i=0;i<17;i++)//deals each hand 17 cards
 			{
-				int e=rand.nextInt(deck.size());
-				hand.add(deck.get(e));
-				deck.remove(e);
+				int e=rand.nextInt(deck.size());//pulls cards from the deck
+				hand.add(deck.get(e));//adds pulled card to hand
+				deck.remove(e);//removes card from deck
 			}
-			Collections.sort(hand);
-			Collections.reverse(hand);
+			Collections.sort(hand);//sorts player hand
+			Collections.reverse(hand);//resorts player hand
 			
-			sPlayers.get(p).setHand(hand);
+			sPlayers.get(p).setHand(hand);//gives player p the hand
 
 			//System.out.println("player "+p+" has a hand");
 			//System.out.println(sPlayers.get(p).getHand().toString());
 		}
-		System.out.println("making gamestate");
+		//System.out.println("making gamestate");
 		GameState currentState= generateGameState(player_turn);
-		System.out.println("I made a gamestate");
+		//System.out.println("I made a gamestate");
 		for (rounds=0; rounds<17; rounds++) {
 			System.out.println("Round "+(rounds+1));
 			for(int p=0; p<3; p++) {
@@ -73,12 +73,12 @@ public class Game {
 			this.IncrementTurn();
 			//System.out.println("I Incremented turn");
 			}
-			this.FindWinner(currentState);
+			this.FindWinner(currentState);//finds the winner of the round
 			for (int i = 0; i<3; i++) {
-				cardsOnTable[i] = null;
+				cardsOnTable[i] = null;//resets cards on table to null
 			}
 		}
-		this.FindWinnerFinal();
+		this.FindWinnerFinal();//finds the winner of the game
 		
 	}
 	
