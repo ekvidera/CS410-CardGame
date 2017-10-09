@@ -24,7 +24,7 @@ public class Game {
 	{
 		sPlayers = serverPlayers;
 	}
-
+//main game loop
 	public void GameLoop() {
 		//initialize the deck and populate with one of each card
 		//System.out.println("Gameloop started");
@@ -252,6 +252,7 @@ public class Game {
 			player_turn=2;
 		}
 	}
+	//increment turns function
 	public void IncrementTurn() {
 		player_turn++;
 		player_turn=player_turn % 3;
