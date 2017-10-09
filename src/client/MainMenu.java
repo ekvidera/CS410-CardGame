@@ -113,8 +113,7 @@ public class MainMenu extends JFrame {
 					try {
 						addr = InetAddress.getByName(addressStr); //put IP
 						//System.out.println("about to initialize clients");
-						MainMenu.this.setVisible(false); //To distinguish MainMenu
-						//GameUI board = new GameUI(); 
+						MainMenu.this.setVisible(false); //To distinguish MainMenu 
 						Client c = Client.initializeClient(clientName, addr, 5000); //Nick name to be stored in c
 						c.startClientGameLoop(); //To start the game
 					} catch(UnknownHostException uhe) {

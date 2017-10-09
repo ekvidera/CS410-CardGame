@@ -55,9 +55,9 @@ public class Game {
 			//System.out.println("player "+p+" has a hand");
 			//System.out.println(sPlayers.get(p).getHand().toString());
 		}
-		//System.out.println("making gamestate");
+		System.out.println("making gamestate");
 		GameState currentState= generateGameState(player_turn);
-		//System.out.println("I made a gamestate");
+		System.out.println("I made a gamestate");
 		for (rounds=0; rounds<17; rounds++) {
 			System.out.println("Round "+(rounds+1));
 			for(int p=0; p<3; p++) {
