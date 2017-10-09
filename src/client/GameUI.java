@@ -124,6 +124,8 @@ class GamePanel extends JLayeredPane {
 		for (int i=cardsInHand.size()-1; i>=0; i--) {
 			System.out.println(i);
 			CardButton b = new CardButton(cardsInHand.get(i));
+			b.setEnabled(false);
+			buttons.add(b);
 			b.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					if(client.canPlayCard(b.getCard())) {

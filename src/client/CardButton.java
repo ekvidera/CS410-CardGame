@@ -22,6 +22,7 @@ public class CardButton extends JButton {
 		this.setSize(new Dimension(125,175));
 		ImageIcon cardIcon = new ImageIcon("resources/cards/"+cardFileName);
 		this.setIcon(cardIcon);
+		this.setDisabledIcon(cardIcon);
 	}
 	
 	private String getCardFileName(Card card) {	
