@@ -50,6 +50,10 @@ public class GameState implements Serializable {
 	public Card[] getCardsOnTable() {
 		return cardsOnTable;
 	}
+	
+	public void setCardsOnTable(Card newCard) {
+		this.cardsOnTable[1]=newCard;
+	}
 
 	public Status getStatus() {
 		return status;

@@ -1,6 +1,7 @@
 package server;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 import util.BasicPlayer;
@@ -9,16 +10,12 @@ import util.Player;
 import util.Card.Rank;
 import util.Card.Suit;
 import util.GameState;
-import util.GameState.Status;
 
 public class Game {
 	public static final int PLAYERS_NEEDED = 3;
 	private ArrayList<ServerPlayer> sPlayers = new ArrayList<ServerPlayer>();
 	public int rounds;
 	private int player_turn=0;//player one
-	private int p1pos=0;
-	private int p2pos=1;
-	private int p3pos=2;
 	
 	private Card[] cardsOnTable = new Card[3];
 	public Game(ArrayList<ServerPlayer> serverPlayers)
@@ -35,6 +32,7 @@ public class Game {
 				Card card = new Card(ra, su);
 				deck.add(card);
 			}
+			
 		}	
 		
 		Random rand = new Random();
@@ -47,6 +45,9 @@ public class Game {
 				hand.add(deck.get(e));
 				deck.remove(e);
 			}
+			Collections.sort(hand);
+			Collections.reverse(hand);
+			
 			sPlayers.get(p).setHand(hand);
 			cardsOnTable[p] = hand.get(0);
 			//System.out.println("player "+p+" has a hand");
@@ -102,26 +103,110 @@ public class Game {
 		int p1=sPlayers.get(0).getRoundsWon();
 		int p2=sPlayers.get(1).getRoundsWon();
 		int p3=sPlayers.get(2).getRoundsWon();
+		int p1cardTotal=0;
+		int p2cardTotal=0;
+		int p3cardTotal=0;
+		System.out.println("Lets find the winner!");
+		System.out.println("Player 1 has: "+p1+"points");	
+		System.out.println("Player 2 has: "+p2+"points");	
+		System.out.println("Player 3 has: "+p3+"points");	
+		for(int l=sPlayers.get(0).getCardsWon().size()-1; l>0;l--) {
+		p1cardTotal=sPlayers.get(0).getCardsWon().get(l).getValue()+p1cardTotal;
+		}
+		for(int l=sPlayers.get(1).getCardsWon().size()-1; l>0;l--) {
+		p2cardTotal=sPlayers.get(1).getCardsWon().get(l).getValue()+p2cardTotal;
+		}
+		for(int l=sPlayers.get(2).getCardsWon().size()-1; l>0;l--) {
+		p3cardTotal=sPlayers.get(2).getCardsWon().get(l).getValue()+p3cardTotal;
+		}
 		if(p1>p2&&p1>p3) {
-			generateGameState(p1,GameState.Status.STATUS_GAME_WON);
-			generateGameState(p2,GameState.Status.STATUS_GAME_LOST);
-			generateGameState(p3,GameState.Status.STATUS_GAME_LOST);
+			System.out.println("Player 1 wins");	
+			sPlayers.get(0).setGameState(generateGameState(0,GameState.Status.STATUS_GAME_WON));
+			System.out.println("set player 1");
+			//sPlayers.get(0).sendGameState();
+			System.out.println("Sent gamestate to player 1");
+			sPlayers.get(1).setGameState(generateGameState(1,GameState.Status.STATUS_GAME_LOST));
+			System.out.println("set player 2");
+			sPlayers.get(2).setGameState(generateGameState(2,GameState.Status.STATUS_GAME_LOST));
+			System.out.println("set player 3");
 		}
 		else if(p2>p1&&p2>p3) {
-			generateGameState(p2,GameState.Status.STATUS_GAME_WON);
-			generateGameState(p1,GameState.Status.STATUS_GAME_LOST);
-			generateGameState(p3,GameState.Status.STATUS_GAME_LOST);
+			System.out.println("Player 2 wins");	
+			sPlayers.get(1).setGameState(generateGameState(1,GameState.Status.STATUS_GAME_WON));
+			System.out.println("set player 2");
+			//sPlayers.get(1).sendGameState();
+			System.out.println("Sent gamestate to player 2");
+			sPlayers.get(0).setGameState(generateGameState(0,GameState.Status.STATUS_GAME_LOST));
+			System.out.println("set player 1");
+			sPlayers.get(2).setGameState(generateGameState(2,GameState.Status.STATUS_GAME_LOST));
+			System.out.println("set player 3");
 		}
 		else if(p3>p1&&p3>p2) {
-			generateGameState(p3,GameState.Status.STATUS_GAME_WON);
-			generateGameState(p2,GameState.Status.STATUS_GAME_LOST);
-			generateGameState(p1,GameState.Status.STATUS_GAME_LOST);
+			System.out.println("Player 3 wins");	
+			sPlayers.get(2).setGameState(generateGameState(2,GameState.Status.STATUS_GAME_WON));
+			System.out.println("set player 3");
+			sPlayers.get(2).sendGameState();
+			System.out.println("Sent gamestate to player 3");
+			sPlayers.get(1).setGameState(generateGameState(1,GameState.Status.STATUS_GAME_LOST));
+			System.out.println("set player 2");
+			sPlayers.get(0).setGameState(generateGameState(0,GameState.Status.STATUS_GAME_LOST));
+			System.out.println("set player 1");
+		}
+		else if(p1==p2||p1==p3||p2==p3) {
+			if(p1cardTotal>p2cardTotal&&p1cardTotal>p3cardTotal) {
+				System.out.println("Player 1 wins");	
+				sPlayers.get(0).setGameState(generateGameState(0,GameState.Status.STATUS_GAME_WON));
+				System.out.println("set player 1");
+				//sPlayers.get(0).sendGameState();
+				System.out.println("Sent gamestate to player 1");
+				sPlayers.get(1).setGameState(generateGameState(1,GameState.Status.STATUS_GAME_LOST));
+				System.out.println("set player 2");
+				sPlayers.get(2).setGameState(generateGameState(2,GameState.Status.STATUS_GAME_LOST));
+				System.out.println("set player 3");
+			}
+			else if(p2cardTotal>p1cardTotal&&p2cardTotal>p3cardTotal) {
+				System.out.println("Player 2 wins");	
+				sPlayers.get(1).setGameState(generateGameState(1,GameState.Status.STATUS_GAME_WON));
+				System.out.println("set player 2");
+				//sPlayers.get(1).sendGameState();
+				System.out.println("Sent gamestate to player 2");
+				sPlayers.get(0).setGameState(generateGameState(0,GameState.Status.STATUS_GAME_LOST));
+				System.out.println("set player 1");
+				sPlayers.get(2).setGameState(generateGameState(2,GameState.Status.STATUS_GAME_LOST));
+				System.out.println("set player 3");
+			}
+			else if(p3cardTotal>p2cardTotal&&p3cardTotal>p1cardTotal) {
+				System.out.println("Player 3 wins");	
+				sPlayers.get(2).setGameState(generateGameState(2,GameState.Status.STATUS_GAME_WON));
+				System.out.println("set player 3");
+				sPlayers.get(2).sendGameState();
+				System.out.println("Sent gamestate to player 3");
+				sPlayers.get(1).setGameState(generateGameState(1,GameState.Status.STATUS_GAME_LOST));
+				System.out.println("set player 2");
+				sPlayers.get(0).setGameState(generateGameState(0,GameState.Status.STATUS_GAME_LOST));
+				System.out.println("set player 1");	
+			}
+			else {
+			System.out.println("No player wins");	
+			sPlayers.get(2).setGameState(generateGameState(2,GameState.Status.STATUS_GAME_TIED));
+			System.out.println("set player 3");
+			sPlayers.get(1).setGameState(generateGameState(1,GameState.Status.STATUS_GAME_TIED));
+			System.out.println("set player 2");
+			sPlayers.get(0).setGameState(generateGameState(0,GameState.Status.STATUS_GAME_TIED));
+			System.out.println("set player 1");
+			}
 		}
 		else {
-			generateGameState(p1,GameState.Status.STATUS_GAME_DISCONNECTED);
-			generateGameState(p2,GameState.Status.STATUS_GAME_DISCONNECTED);
-			generateGameState(p3,GameState.Status.STATUS_GAME_DISCONNECTED);
+			sPlayers.get(0).setGameState(generateGameState(0,GameState.Status.STATUS_GAME_DISCONNECTED));
+			sPlayers.get(1).setGameState(generateGameState(1,GameState.Status.STATUS_GAME_DISCONNECTED));
+			sPlayers.get(2).setGameState(generateGameState(2,GameState.Status.STATUS_GAME_DISCONNECTED));
 		}
+		sPlayers.get(0).sendGameState();
+		System.out.println("sent to player 1");
+		sPlayers.get(1).sendGameState();
+		System.out.println("sent to player 2");
+		sPlayers.get(2).sendGameState();
+		System.out.println("sent to player 3");
 	}
 	
 	
@@ -143,34 +228,28 @@ public class Game {
 			p3Val=0;
 		
 		if(p1Val>p2Val&&p1Val>p3Val) {
-			sPlayers.get(p1pos).addCardsWon(cardsOnTable);
-			sPlayers.get(p1pos).setRoundsWon(sPlayers.get(p1pos).getRoundsWon()+1);	
-			player_turn=p1pos;
+			cardsOnTable.toString();
+			System.out.println(cardsOnTable.toString());
+			sPlayers.get(0).addCardsWon(cardsOnTable);
+			sPlayers.get(0).setRoundsWon(sPlayers.get(0).getRoundsWon()+1);	
+			player_turn=0;
 		}
 		else if(p2Val>p1Val&&p2Val>p3Val) {
-			sPlayers.get(p2pos).addCardsWon(cardsOnTable);
-			sPlayers.get(p2pos).setRoundsWon(sPlayers.get(p2pos).getRoundsWon()+1);	
-			player_turn=p2pos;
+			System.out.println(cardsOnTable.toString());
+			sPlayers.get(1).addCardsWon(cardsOnTable);
+			sPlayers.get(1).setRoundsWon(sPlayers.get(1).getRoundsWon()+1);	
+			player_turn=1;
 		}
 		else if(p3Val>p2Val&&p3Val>p1Val) {
-			sPlayers.get(p3pos).addCardsWon(cardsOnTable);
-			sPlayers.get(p3pos).setRoundsWon(sPlayers.get(p3pos).getRoundsWon()+1);	
-			player_turn=p3pos;
+			System.out.println(cardsOnTable.toString());
+			sPlayers.get(2).addCardsWon(cardsOnTable);
+			sPlayers.get(2).setRoundsWon(sPlayers.get(2).getRoundsWon()+1);	
+			player_turn=2;
 		}
-		else
-			generateGameState(p1pos,GameState.Status.STATUS_GAME_DISCONNECTED);
-			generateGameState(p2pos,GameState.Status.STATUS_GAME_DISCONNECTED);
-			generateGameState(p3pos,GameState.Status.STATUS_GAME_DISCONNECTED);
 	}
 	public void IncrementTurn() {
 		player_turn++;
 		player_turn=player_turn % 3;
-		p1pos++;
-		p1pos=p1pos %3;
-		p2pos++;
-		p2pos=p2pos %3;
-		p3pos++;
-		p3pos=p3pos %3;
 	}
 	
 }

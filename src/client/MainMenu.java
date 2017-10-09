@@ -48,12 +48,11 @@ h.add(label1);
 
 	
 
-	JButton button1;
-	JButton button2;
-	JButton button3;
-	JButton button4;
-	
 
+	JButton newGameButton;
+	JButton quitGameButton;
+	JButton rulesButton;
+	JButton creditsButton;
 
 	public MainMenu(){
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -66,45 +65,45 @@ h.add(label1);
 		h.setOpaque(false);
 		ButtonListener bl = new ButtonListener();
 		ImageIcon icon1 = new ImageIcon("resources/mainmenu/NewGame.png");
-		button1 = new JButton(icon1);
+		newGameButton = new JButton(icon1);
 		ImageIcon r_icon1 = new ImageIcon("resources/mainmenu/NewGame_H.png");
-		button1.setBounds(210, 130, 220, 70);
-		button1.setRolloverIcon(r_icon1);
-		button1.addActionListener(bl);
+		newGameButton.setBounds(210, 130, 220, 70);
+		newGameButton.setRolloverIcon(r_icon1);
+		newGameButton.addActionListener(bl);
 
 		ImageIcon icon3 = new ImageIcon("resources/mainmenu/Rules.png");
-		button3 = new JButton(icon3);
+		rulesButton = new JButton(icon3);
 		ImageIcon r_icon3 = new ImageIcon("resources/mainmenu/Rules_H.png");
-		button3.setBounds(210, 210, 220, 70);
-		button3.setRolloverIcon(r_icon3);
-		button3.addActionListener(bl);
+		rulesButton.setBounds(210, 210, 220, 70);
+		rulesButton.setRolloverIcon(r_icon3);
+		rulesButton.addActionListener(bl);
 
 		ImageIcon icon4 = new ImageIcon("resources/mainmenu/Credit.png");
-		 button4 = new JButton(icon4);
+		 creditsButton = new JButton(icon4);
 		ImageIcon r_icon4 = new ImageIcon("resources/mainmenu/Credit_H.png");
-		button4.setBounds(210, 290, 100, 70);
-		button4.setRolloverIcon(r_icon4);
-		button4.addActionListener(bl);
+		creditsButton.setBounds(210, 290, 100, 70);
+		creditsButton.setRolloverIcon(r_icon4);
+		creditsButton.addActionListener(bl);
 
 		ImageIcon icon2 = new ImageIcon("resources/mainmenu/Quit.png");
-		button2 = new JButton(icon2);
+		quitGameButton = new JButton(icon2);
 		ImageIcon r_icon2 = new ImageIcon("resources/mainmenu/Quit_H.png");
-		button2.setBounds(330, 290, 100, 70);
-		button2.setRolloverIcon(r_icon2);
-		button2.addActionListener(bl);
+		quitGameButton.setBounds(330, 290, 100, 70);
+		quitGameButton.setRolloverIcon(r_icon2);
+		quitGameButton.addActionListener(bl);
 
 
 
 		JPanel p = new MenuPanel();
 		p.setLayout(null);
 
-		p.add(button1);
+		p.add(newGameButton);
 		//p.add(Box.createRigidArea(new Dimension(5,8)));
-		p.add(button2);
+		p.add(quitGameButton);
 		//p.add(Box.createRigidArea(new Dimension(5,8)));
-		p.add(button3);
+		p.add(rulesButton);
 		//p.add(Box.createRigidArea(new Dimension(5,8)));
-		p.add(button4);
+		p.add(creditsButton);
 
 		getContentPane().add(p, BorderLayout.CENTER);
 
@@ -115,23 +114,28 @@ h.add(label1);
 
 			public void actionPerformed(ActionEvent e) {
 				//System.out.println(e.getSource().toString());
-				if(e.getSource() == button1) {
-					System.out.println("MAKES A NEW GAME");
+
+				if(e.getSource() == newGameButton) {
+
 					InetAddress addr;
 					String clientName = JOptionPane.showInputDialog("Enter your nickname:");
 					String addressStr = JOptionPane.showInputDialog("Enter server address");
 					try {
 						addr = InetAddress.getByName(addressStr);
+
+						//System.out.println("about to initalize clients");
+						MainMenu.this.setVisible(false);
+						//GameUI board = new GameUI(); 
 						Client c = Client.initializeClient(clientName, addr, 5000);
 					} catch(UnknownHostException uhe) {
 						JOptionPane.showMessageDialog(null,"Could not resolve hostname '"+addressStr+"'");
 					}
 
 				}
-				if(e.getSource() == button2) {
+				if(e.getSource() == quitGameButton) {
 					System.exit(0);
 				}
-				if(e.getSource() == button3) {
+				if(e.getSource() == rulesButton) {
 					if (Desktop.isDesktopSupported()) {
 						try {
 							File myFile = new File("resources/Rules.pdf");
@@ -141,7 +145,7 @@ h.add(label1);
 						}
 					}
 				}
-				if(e.getSource() ==button4) {
+				if(e.getSource() ==creditsButton) {
 					System.out.println("A Team Jellyfish Production");
 				}
 
