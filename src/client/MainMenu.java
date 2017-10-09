@@ -49,8 +49,6 @@ public class MainMenu extends JFrame {
 		this.setVisible(true);//set Visibility
 		this.setSize(new Dimension(640, 420));//set default size of window
 		this.setResizable(false);//setting to not change window size
-//		JPanel h = new JPanel(); 
-//		h.setOpaque(false);
 		ButtonListener bl = new ButtonListener(); //setting clicked Button operation
 		ImageIcon icon1 = new ImageIcon("resources/mainmenu/NewGame.png"); //insert image as icon1 for "New Game"
 		newGameButton = new JButton(icon1);// set above image as button
