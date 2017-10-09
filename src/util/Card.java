@@ -9,26 +9,26 @@ public class Card implements Comparable<Card>, Serializable {
 	public enum Rank {TWO, THREE, FOUR, 
 		FIVE, SIX, SEVEN, 
 		EIGHT, NINE, TEN, 
-		JACK, QUEEN, KING, ACE};
-	public enum Suit {CLUBS, DIAMONDS, HEARTS, SPADES};
+		JACK, QUEEN, KING, ACE}; //Put variable each number in Rank
+	public enum Suit {CLUBS, DIAMONDS, HEARTS, SPADES};//Put four marks in Suit
 
-	private Rank rank;
-	private Suit suit;
+	private Rank rank;//set variable Rank as rank
+	private Suit suit;//set variable Suit as suit
 	
-	public Card(Rank rank, Suit suit) {
+	public Card(Rank rank, Suit suit) { //Get rank and suit to set card
 		this.rank = rank;
 		this.suit = suit;
 	}
 	
-	public Suit getSuit() {
+	public Suit getSuit() { //Method to get suit
 		return suit;
 	}
 	
-	public Rank getRank() {
+	public Rank getRank() { //Method to get Rank
 		return rank;
 	}
 	
-	public int getValue() {
+	public int getValue() { //method to get Value
 		return rank.ordinal() + 2;
 	}
 	

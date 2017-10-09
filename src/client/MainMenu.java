@@ -9,7 +9,6 @@ import javax.swing.BoxLayout;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-
 import java.awt.Container;
 import java.awt.Desktop;
 import java.awt.Dimension;
@@ -25,52 +24,43 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.awt.BorderLayout;
-
 import javax.swing.border.LineBorder;
 import javax.swing.border.EtchedBorder;
 import java.awt.Color;
 import java.awt.Container;
 
 
+/*
+ *  This class is for GUI Main Menu which use can choose "Start Game," "Rule," "Credit," and "Rules"
+ */
+
 public class MainMenu extends JFrame {
 
-
-
-		/*
-ImageIcon icon1 = new ImageIcon("Mati.jpg");
-
-JLabel label1 = new JLabel(icon1);
-
-JLabel label2 = new JLabel();
-
-h.add(label1);
-		 */
-
-	
-
-
-	JButton newGameButton;
-	JButton quitGameButton;
-	JButton rulesButton;
-	JButton creditsButton;
+	JButton newGameButton; //Button to start the Card Game
+	JButton quitGameButton; //Button to quit this application
+	JButton rulesButton; //Button to show rule PDF file
+	JButton creditsButton; //Button to show credits
 
 	public MainMenu(){
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setBounds(10,10,650,650);
-		this.setTitle("MainMenu");
-		this.setVisible(true);
-		this.setSize(new Dimension(640, 420));
-		this.setResizable(false);
-		JPanel h = new JPanel();
-		h.setOpaque(false);
-		ButtonListener bl = new ButtonListener();
-		ImageIcon icon1 = new ImageIcon("resources/mainmenu/NewGame.png");
-		newGameButton = new JButton(icon1);
-		ImageIcon r_icon1 = new ImageIcon("resources/mainmenu/NewGame_H.png");
-		newGameButton.setBounds(210, 130, 220, 70);
-		newGameButton.setRolloverIcon(r_icon1);
-		newGameButton.addActionListener(bl);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //Operation when user push "x" button
+		this.setBounds(10,10,650,650); //Set the size of window
+		this.setTitle("MainMenu"); //Set title which can show title bar
+		this.setVisible(true);//set Visibility
+		this.setSize(new Dimension(640, 420));//set default size of window
+		this.setResizable(false);//setting to not change window size
+//		JPanel h = new JPanel(); 
+//		h.setOpaque(false);
+		ButtonListener bl = new ButtonListener(); //setting clicked Button operation
+		ImageIcon icon1 = new ImageIcon("resources/mainmenu/NewGame.png"); //insert image as icon1 for "New Game"
+		newGameButton = new JButton(icon1);// set above image as button
+		ImageIcon r_icon1 = new ImageIcon("resources/mainmenu/NewGame_H.png");//insert image as r_icon1 when user roll over the button
+		newGameButton.setBounds(210, 130, 220, 70);//Set coordinate and size of button
+		newGameButton.setRolloverIcon(r_icon1);//Setting when we roll over the icon
+		newGameButton.addActionListener(bl);//Set button to get action
 
+		/*
+		 * Another three buttons are same procedure to put and action as above
+		 */
 		ImageIcon icon3 = new ImageIcon("resources/mainmenu/Rules.png");
 		rulesButton = new JButton(icon3);
 		ImageIcon r_icon3 = new ImageIcon("resources/mainmenu/Rules_H.png");
@@ -92,60 +82,60 @@ h.add(label1);
 		quitGameButton.setRolloverIcon(r_icon2);
 		quitGameButton.addActionListener(bl);
 
+		/*
+		 * 
+		 */
 
 
-		JPanel p = new MenuPanel();
-		p.setLayout(null);
+		JPanel p = new MenuPanel();//JPanel to output Menu on GUI
+		p.setLayout(null); //Invalid layout manager by default in container
 
-		p.add(newGameButton);
-		//p.add(Box.createRigidArea(new Dimension(5,8)));
-		p.add(quitGameButton);
-		//p.add(Box.createRigidArea(new Dimension(5,8)));
-		p.add(rulesButton);
-		//p.add(Box.createRigidArea(new Dimension(5,8)));
-		p.add(creditsButton);
+		p.add(newGameButton); //output new game button
+		p.add(quitGameButton);//output quit game button
+		p.add(rulesButton);//output rules button
+		p.add(creditsButton);//output credits button
 
-		getContentPane().add(p, BorderLayout.CENTER);
+		getContentPane().add(p, BorderLayout.CENTER); //Specify where to place the component when placing it
 
 	}
 
 
 		class ButtonListener implements ActionListener {
 
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent e) { //Action method when button was pressed
 				//System.out.println(e.getSource().toString());
 
-				if(e.getSource() == newGameButton) {
+				if(e.getSource() == newGameButton) { //When New Game Button are pressed
 
-					InetAddress addr;
-					String clientName = JOptionPane.showInputDialog("Enter your nickname:");
+					InetAddress addr; //variable to get IP
+					String clientName = JOptionPane.showInputDialog("Enter your nickname:"); //To let user know what string should they write 
 					String addressStr = JOptionPane.showInputDialog("Enter server address");
 					try {
-						addr = InetAddress.getByName(addressStr);
-						//System.out.println("about to initalize clients");
-						MainMenu.this.setVisible(false);
+						addr = InetAddress.getByName(addressStr); //put IP
+						//System.out.println("about to initialize clients");
+						MainMenu.this.setVisible(false); //To distinguish MainMenu
 						//GameUI board = new GameUI(); 
-						Client c = Client.initializeClient(clientName, addr, 5000);
-						c.startClientGameLoop();
+						Client c = Client.initializeClient(clientName, addr, 5000); //Nick name to be stored in c
+						c.startClientGameLoop(); //To start the game
 					} catch(UnknownHostException uhe) {
 						JOptionPane.showMessageDialog(null,"Could not resolve hostname '"+addressStr+"'");
 					}
 
 				}
-				if(e.getSource() == quitGameButton) {
-					System.exit(0);
+				if(e.getSource() == quitGameButton) { //When user push quit button
+					System.exit(0); //The game quit
 				}
-				if(e.getSource() == rulesButton) {
+				if(e.getSource() == rulesButton) {//When user push rule button
 					if (Desktop.isDesktopSupported()) {
 						try {
-							File myFile = new File("resources/Rules.pdf");
+							File myFile = new File("resources/Rules.pdf");//Show a PDF file
 							Desktop.getDesktop().open(myFile);
 						} catch (IOException ex) {
 							// no application registered for PDFs
 						}
 					}
 				}
-				if(e.getSource() ==creditsButton) {
+				if(e.getSource() ==creditsButton) { //When credit buttons are pushed,
 					System.out.println("A Team Jellyfish Production");
 				}
 
@@ -154,21 +144,23 @@ h.add(label1);
 	
 }
 
-
+/*
+ * MenuPanel Class for show background image
+ */
 
 class MenuPanel extends JPanel {
-	Image backgroundImage;
+	Image backgroundImage;//variable to insert background image
 
 	MenuPanel() {
-		backgroundImage = Toolkit.getDefaultToolkit().createImage("resources/mainmenu/Background_withTitle.jpg"); 
-		setOpaque(false); 
+		backgroundImage = Toolkit.getDefaultToolkit().createImage("resources/mainmenu/Background_withTitle.jpg"); //insert background image
+		setOpaque(false); //to set a transparent
 	}
 
 	@Override 
 	public void paint(Graphics g) {
-		g.drawImage(backgroundImage, 0,0, this);
+		g.drawImage(backgroundImage, 0,0, this);//draw a background image
 		super.paint(g); 
-		this.setSize(new Dimension(640,400));
+		this.setSize(new Dimension(640,400));//set size of window
 	}
 
 

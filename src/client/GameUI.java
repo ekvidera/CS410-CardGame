@@ -9,7 +9,6 @@ import javax.swing.JTextField;
 import client.MainMenu.*;
 import util.Card;
 import util.GameState;
-
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.EventQueue;
@@ -23,7 +22,6 @@ import java.util.ArrayList;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
-
 
 
 public class GameUI extends JFrame{
@@ -144,7 +142,7 @@ class GamePanel extends JLayeredPane {
 		JLabel label3 = new JLabel (player3);
 		label3.setFont(new Font("Monotype Corsiva", Font.PLAIN, 23));
 		label3.setForeground(Color.white);
-		label3.setBounds(945,290,100,150);
+		label3.setBounds(925,290,100,150);
 		add(label3);
 		
 		
