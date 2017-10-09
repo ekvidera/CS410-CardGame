@@ -137,6 +137,7 @@ class GamePanel extends JLayeredPane {
 		ImageIcon cardBackLeft = new ImageIcon("resources/cards/cardback2.png");
 		ImageIcon cardBackRight = new ImageIcon("resources/cards/cardback3.png");
 		renderGameState(gameState);
+		renderGameScore(gameState);
 		
 		int pLeftCards = this.gameState.getLeftPlayer().getQtyCardsInHand();
 		int pRightCards = this.gameState.getRightPlayer().getQtyCardsInHand();
@@ -164,29 +165,57 @@ class GamePanel extends JLayeredPane {
 
 	
 
-	public void renderGameState(GameState g) {
+	private void renderGameScore(GameState g) {
 		
-		GamePanel GamePanel = new GamePanel(client);
-			
-		String player1 = gameState.getLeftPlayer().getName();
-		JLabel label1 = new JLabel (player1);
+		int player1 = gameState.getLeftPlayer().getRoundsWon();
+		String p1 = "" + player1;
+		JLabel label1 = new JLabel (p1);
 		label1.setFont(new Font("Monotype Corsiva", Font.PLAIN,23));
 		label1.setForeground(Color.white);
+		label1.setBounds(25,310,100,150);
 		add(label1);
-		label1.setBounds(10,290,100,150);
 		
-		String player2 = gameState.getThisPlayer().getName();
-		JLabel label2 = new JLabel (player2);
+		int player2 = gameState.getThisPlayer().getRoundsWon();
+		String p2 = "" + player2;
+		JLabel label2 = new JLabel (p2);
 		label2.setFont(new Font("Monotype Corsiva", Font.PLAIN, 23));
 		label2.setForeground(Color.white);
 		add(label2);
 		label2.setBounds(490,520,100,150);
 		
+		int player3 = gameState.getRightPlayer().getRoundsWon();
+		String p3 = "" + player3;
+		JLabel label3 = new JLabel (p3);
+		label3.setFont(new Font("Monotype Corsiva", Font.PLAIN, 23));
+		label3.setForeground(Color.white);
+		label3.setBounds(940,310,100,150);
+		add(label3);
+		
+		
+	}
+
+	public void renderGameState(GameState g) {
+		
+			
+		String player1 = gameState.getLeftPlayer().getName();
+		JLabel label1 = new JLabel (player1);
+		label1.setFont(new Font("Monotype Corsiva", Font.PLAIN,23));
+		label1.setForeground(Color.white);
+		label1.setBounds(10,300,150,100);
+		add(label1);
+		
+		String player2 = gameState.getThisPlayer().getName();
+		JLabel label2 = new JLabel (player2);
+		label2.setFont(new Font("Monotype Corsiva", Font.PLAIN, 23));
+		label2.setForeground(Color.white);
+		label2.setBounds(460,520,100,100);
+		add(label2);
+		
 		String player3 = gameState.getRightPlayer().getName();
 		JLabel label3 = new JLabel (player3);
 		label3.setFont(new Font("Monotype Corsiva", Font.PLAIN, 23));
 		label3.setForeground(Color.white);
-		label3.setBounds(925,290,100,150);
+		label3.setBounds(925,300,100,100);
 		add(label3);
 		
 		
