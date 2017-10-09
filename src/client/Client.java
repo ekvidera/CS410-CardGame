@@ -57,14 +57,35 @@ public class Client extends NetworkPlayer {
 			case STATUS_GAME_WON:
 				board.gamePanel.showMessage("You won!");
 				//System.exit(0);
+				try {
+					Thread.sleep(8000);
+					MainMenu mainmenu =new MainMenu();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				break;
 			case STATUS_GAME_LOST:
 				System.out.println(this.getName()+"I lost");
 				board.gamePanel.showMessage("You lost!");
+				try {
+					Thread.sleep(8000);
+					MainMenu mainmenu =new MainMenu();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				break;
 			case STATUS_GAME_TIED:
 				board.gamePanel.showMessage("It's a tie.");
 				System.out.println(this.getName()+"I tied");
+				try {
+					Thread.sleep(8000);
+					MainMenu mainmenu =new MainMenu();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				break;
 			case STATUS_GAME_DISCONNECTED:
 				JOptionPane.showMessageDialog(null, "Game Disconnected.");
