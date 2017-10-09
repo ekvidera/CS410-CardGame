@@ -75,6 +75,17 @@ public class Game {
 			}
 			this.FindWinner(currentState);
 			for (int i = 0; i<3; i++) {
+				sPlayers.get(i).setGameState(generateGameState(i, GameState.Status.STATUS_ROUND_END));
+				sPlayers.get(i).sendGameState();
+			}
+		
+			try {
+				Thread.sleep(2000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			
+			for (int i = 0; i<3; i++) {
 				cardsOnTable[i] = null;
 			}
 		}

@@ -95,8 +95,8 @@ class GamePanel extends JLayeredPane {
 
 	public void setGameState(GameState gameState) {
 		this.gameState = gameState;
-		this.messageLabel = new JLabel("Default message");
-		messageLabel.setBounds(400, 300, 200, 100);
+		this.messageLabel = new JLabel();
+		messageLabel.setBounds(400, 300, 400, 100);
 		messageLabel.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 20));
 		messageLabel.setVisible(true);
 		this.add(messageLabel, -1, -1);

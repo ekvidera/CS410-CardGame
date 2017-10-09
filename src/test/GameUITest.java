@@ -43,8 +43,6 @@ public class GameUITest {
 		p.setHand(Cards);
 		GameState gs = new GameState(p, (BasicPlayer) p, (BasicPlayer) p, cardsOnTable, null);
 		gs.setPlayerTurn(0);
-		
-
 		g.setGameState(gs);
 		g.repaint();
 		

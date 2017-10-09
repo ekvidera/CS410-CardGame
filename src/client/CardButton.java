@@ -9,7 +9,8 @@ import util.Card;
 
 
 public class CardButton extends JButton {
-	
+
+	//JButton which displays a card image
 	private static final long serialVersionUID = 1L;
 	private Card card;
 	
@@ -17,6 +18,7 @@ public class CardButton extends JButton {
 		return this.card;
 	}
 
+	//constructor
 	public CardButton(Card card) {
 		this.card = card;
 		String cardFileName = getCardFileName(card);
@@ -26,6 +28,7 @@ public class CardButton extends JButton {
 		this.setDisabledIcon(cardIcon);
 	}
 	
+	//translate card info into filename
 	private String getCardFileName(Card card) {	
 		String cardFileName = "";
 		
