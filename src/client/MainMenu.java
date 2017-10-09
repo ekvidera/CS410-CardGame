@@ -35,6 +35,7 @@ import java.awt.Container;
  */
 
 public class MainMenu extends JFrame {
+	
 
 	JButton newGameButton; //Button to start the Card Game
 	JButton quitGameButton; //Button to quit this application
