@@ -79,6 +79,7 @@ void renderGameState(GameState g) {
 		this.client = c;
 
 		gamePanel = new GamePanel(c);
+
 		gamePanel.setLayout(null);
 		getContentPane().add(gamePanel);
 
@@ -143,7 +144,14 @@ class GamePanel extends JLayeredPane {
 			this.add(b, -1, -1);
 			b.setLocation(165 + i*35, 380);
 		}
-		
+		Card[] onTable = this.gameState.getCardsOnTable();
+		for (int i=this.gameState.getCardsOnTable().length-1;i>=0;i--) {
+			if(onTable[i]!=null) {
+			CardButton q = new CardButton(onTable[i]);
+			this.add(q, -1, -1);
+			q.setLocation(450-(i*35), 100);
+			}
+		}
 		ImageIcon cardBackLeft = new ImageIcon("resources/cards/cardback2.png");
 		ImageIcon cardBackRight = new ImageIcon("resources/cards/cardback3.png");
 		
