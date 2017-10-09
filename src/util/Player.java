@@ -18,6 +18,7 @@ public class Player extends BasicPlayer {
 	
 	public void setHand(ArrayList<Card> hand) {
 		this.hand = hand;
+		this.setQtyCardsInHand(hand.size());
 	}
 	
 	public void addCardsWon(Card[] cardsWon) {

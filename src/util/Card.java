@@ -39,6 +39,6 @@ public class Card implements Comparable<Card>, Serializable {
 	@Override
 	public int compareTo(Card other) { //sort by suit, then by rank, ascending
 		return (this.suit.ordinal() - other.suit.ordinal()) * 13 
-				- (this.rank.ordinal() - other.rank.ordinal());
+				+ (this.rank.ordinal() - other.rank.ordinal());
 	}
 }
