@@ -35,6 +35,7 @@ import java.awt.Container;
  */
 
 public class MainMenu extends JFrame {
+	
 
 	JButton newGameButton; //Button to start the Card Game
 	JButton quitGameButton; //Button to quit this application
@@ -48,8 +49,6 @@ public class MainMenu extends JFrame {
 		this.setVisible(true);//set Visibility
 		this.setSize(new Dimension(640, 420));//set default size of window
 		this.setResizable(false);//setting to not change window size
-//		JPanel h = new JPanel(); 
-//		h.setOpaque(false);
 		ButtonListener bl = new ButtonListener(); //setting clicked Button operation
 		ImageIcon icon1 = new ImageIcon("resources/mainmenu/NewGame.png"); //insert image as icon1 for "New Game"
 		newGameButton = new JButton(icon1);// set above image as button
@@ -113,8 +112,7 @@ public class MainMenu extends JFrame {
 					try {
 						addr = InetAddress.getByName(addressStr); //put IP
 						//System.out.println("about to initialize clients");
-						MainMenu.this.setVisible(false); //To distinguish MainMenu
-						//GameUI board = new GameUI(); 
+
 						new Thread(new Runnable() {
 
 							@Override
@@ -143,6 +141,9 @@ public class MainMenu extends JFrame {
 				}
 				if(e.getSource() ==creditsButton) { //When credit buttons are pushed,
 					System.out.println("A Team Jellyfish Production");
+					String credits="Credits";
+					ImageIcon iconj = new ImageIcon("resources/mainmenu/jellyfish.png");
+					JOptionPane.showMessageDialog(null,"A Team Jellyfish Production \n Addison Jenness \n Evan Kvidera \n Mizuho Takayama \n Megan Wefel", credits ,JOptionPane.PLAIN_MESSAGE, iconj);
 				}
 
 			}

@@ -6,16 +6,16 @@ import javax.swing.JButton;
 
 import util.Card;
 
-
+/*
+ * This CardButton class is to import card image to use user interface in Game screen
+ */
 
 public class CardButton extends JButton {
 
-	//JButton which displays a card image
-	private static final long serialVersionUID = 1L;
-	private Card card;
-	
+	private static final long serialVersionUID = 1L;//Manage version of Serialized class
+	private Card card; //Put Card for using card image
 	public Card getCard() {
-		return this.card;
+		return this.card; //Return card if this method was called
 	}
 
 	//constructor
@@ -28,11 +28,11 @@ public class CardButton extends JButton {
 		this.setDisabledIcon(cardIcon);
 	}
 	
-	//translate card info into filename
-	private String getCardFileName(Card card) {	
+
+	private String getCardFileName(Card card) {	//Get card's file name
 		String cardFileName = "";
 		
-		switch (card.getRank()) {
+		switch (card.getRank()) { 
 			case ACE:
 				cardFileName+="a";
 				break;
@@ -50,7 +50,7 @@ public class CardButton extends JButton {
 				break;
 		}
 		
-		switch (card.getSuit()) {
+		switch (card.getSuit()) { //Get suit for 4 kind of marks
 			case SPADES:
 				cardFileName+="s";
 				break;
@@ -68,7 +68,7 @@ public class CardButton extends JButton {
 				return null;
 		}
 				
-		return cardFileName + ".png";
+		return cardFileName + ".png";  //Return the card file name with .png to get designate card image
 	}
 	
 }

@@ -13,7 +13,7 @@ public class ServerApp {
 				server.startGame();
 			} catch (SocketException e) {
 				e.printStackTrace();
-			}
+			} 
 		}
 
 	}
