@@ -1,6 +1,7 @@
 package client;
 
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
@@ -13,13 +14,16 @@ import util.GameState;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Label;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 
 
@@ -35,6 +39,8 @@ public class GameUI extends JFrame{
     String player1;
 	String player2;
 	String player3;
+	
+	Client client;
 	
 	GamePanel gamePanel;
 
@@ -63,15 +69,17 @@ void renderGameState(GameState g) {
 		this.gamePanel.setGameState(gameState);
 	}
 
-	public GameUI(){
+	public GameUI(Client c){
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setBounds(10,10,650,650);
 		this.setTitle("Jellyfish Card Game");
 		this.setSize(new Dimension(1024, 640));
 		this.setResizable(false);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		gamePanel = new GamePanel();
+		this.client = c;
+
+		gamePanel = new GamePanel(c);
+
 		gamePanel.setLayout(null);
 		getContentPane().add(gamePanel);
 
@@ -87,21 +95,50 @@ class GamePanel extends JLayeredPane {
 	private static final long serialVersionUID = 1L;
 
 	public GameState gameState;
+	Client client;
 	Image backgroundImage;
+	JLabel messageLabel;
+	
+	
+	ArrayList<JButton> buttons = new ArrayList<JButton>();
 
-	GamePanel() {
+	GamePanel(Client c) {
+		this.client = c;
 		this.setLayout(null);
 		backgroundImage = Toolkit.getDefaultToolkit().createImage("resources/GameScreen/GameBackground.png"); 
 		setOpaque(false); 
 	}
+	
+	public void showMessage(String message) {
+		this.messageLabel.setText(message);;
+	}
 
 	public void setGameState(GameState gameState) {
 		this.gameState = gameState;
+		this.messageLabel = new JLabel("Default message");
+		messageLabel.setBounds(400, 300, 200, 100);
+		messageLabel.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 20));
+		messageLabel.setVisible(true);
+		this.add(messageLabel, -1, -1);
 		ArrayList<Card> cardsInHand = this.gameState.getThisPlayer().getHand();
 		System.out.println(cardsInHand.toString());
 		for (int i=cardsInHand.size()-1; i>=0; i--) {
 			System.out.println(i);
 			CardButton b = new CardButton(cardsInHand.get(i));
+			b.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					if(client.canPlayCard(b.getCard())) {
+						client.playCard(b.getCard());
+						for (JButton button : buttons) {
+							button.setEnabled(false);
+						}
+					} else {
+						showMessage("Please select a card of the leading suit");
+					}
+				}
+			});
+			
+			
 			this.add(b, -1, -1);
 			b.setLocation(165 + i*35, 380);
 		}

@@ -7,8 +7,10 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
+import util.Card;
 import util.GameState;
 import util.NetworkPlayer;
 
@@ -24,7 +26,7 @@ public class Client extends NetworkPlayer {
 	}
 	
 	public void startClientGameLoop() {
-		GameUI board = new GameUI();
+		GameUI board = new GameUI(this);
 		board.setTitle(getName());
 		while (true) {
 			System.out.println("Waiting for gamestate");
@@ -37,32 +39,33 @@ public class Client extends NetworkPlayer {
 			switch(this.getGameState().getStatus()) {
 			case STATUS_YOUR_TURN:
 				System.out.println(this.getName()+"It's my turn");
-				//board.text1.equals(this.getName()+"It's my turn");
-				pickCard();
-				this.gameState.setCardsOnTable(this.getHand().get(selectedCard));
-				System.out.println("I played this card "+this.getHand().get(selectedCard));
-				this.getHand().remove(selectedCard);
-				this.setHand(this.getHand());
-				board.repaint();
-				System.out.println(this.getHand().toString());
-				this.sendGameState();
+				board.gamePanel.showMessage("Your turn!");
+				for (JButton button : board.gamePanel.buttons) {
+					button.setEnabled(true);
+				}
 				break;
 			case STATUS_OTHER_PLAYERS_TURN:
-				System.out.println(this.getName()+" It's not my turn");	
+				System.out.println(this.getName()+" It's not my turn");
+				if (this.gameState.getPlayerTurn() == 0) {
+					board.gamePanel.showMessage(this.gameState.getLeftPlayer().getName() + "'s turn");
+				} else {
+					board.gamePanel.showMessage(this.gameState.getRightPlayer().getName() + "'s turn");
+				}
 				break;
 			case STATUS_GAME_WON:
-				System.out.println(this.getName()+"I won");
+				board.gamePanel.showMessage("You won!");
 				//System.exit(0);
 				break;
 			case STATUS_GAME_LOST:
 				System.out.println(this.getName()+"I lost");
-
+				board.gamePanel.showMessage("You lost!");
 				break;
 			case STATUS_GAME_TIED:
+				board.gamePanel.showMessage("It's a tie.");
 				System.out.println(this.getName()+"I tied");
 				break;
 			case STATUS_GAME_DISCONNECTED:
-				JOptionPane.showMessageDialog(null, "Game Disconnected");
+				JOptionPane.showMessageDialog(null, "Game Disconnected.");
 				MainMenu mainmenu = new MainMenu();
 				mainmenu.setVisible(true);
 				break;
@@ -71,8 +74,37 @@ public class Client extends NetworkPlayer {
 			}
 		}
 	}
-	public void pickCard() {
-		 selectedCard=Integer.parseInt(JOptionPane.showInputDialog(getName()+" Play a card"));
+	
+	public void playCard(Card card) {
+		this.getHand().remove(card);
+		this.gameState.setCardsOnTable(card);
+		this.sendGameState();
+	}
+	
+	public boolean canPlayCard(Card card) {
+		Card firstCard = null;
+		Card[] table = this.gameState.getCardsOnTable();
+		for (int i=2; i<4; i++) {
+			if(table[i % 3] != null) {
+				firstCard = table[i % 3];
+			}
+		}
+		
+		if (firstCard == null) return true;
+		else {
+			Card.Suit suitToMatch = firstCard.getSuit();
+			
+			if (card.getSuit() == suitToMatch) {
+				return true;
+			} else {
+				for (Card c : this.getHand()) {
+					if (c.getSuit() == suitToMatch) {
+						return false;
+					}
+				}
+				return true;
+			}
+		}
 	}
 	
 	public static Client initializeClient(String name, InetAddress serverAddr, int serverPort) {
