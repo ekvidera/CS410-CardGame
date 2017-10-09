@@ -36,10 +36,6 @@ public class GameUI extends JFrame{
 	String player2;
 	String player3;
 	
-	
-
-
-
 	GamePanel gamePanel;
 
 void renderGameState(GameState g) {
@@ -63,6 +59,7 @@ void renderGameState(GameState g) {
 
 
 	public void setGameState(GameState gameState) {
+		gamePanel.removeAll();
 		this.gamePanel.setGameState(gameState);
 	}
 
@@ -106,22 +103,32 @@ class GamePanel extends JLayeredPane {
 			System.out.println(i);
 			CardButton b = new CardButton(cardsInHand.get(i));
 			this.add(b, -1, -1);
-			b.setLocation(140 + i*35, 380);
+			b.setLocation(165 + i*35, 380);
 		}
 		
 		ImageIcon cardBackLeft = new ImageIcon("resources/cards/cardback2.png");
 		ImageIcon cardBackRight = new ImageIcon("resources/cards/cardback3.png");
 		
-		int pLeftCards = this.gameState.getThisPlayer().getQtyCardsInHand();
-		System.out.print(pLeftCards);
-		int pRightCards = this.gameState.getThisPlayer().getQtyCardsInHand();
+		int pLeftCards = this.gameState.getLeftPlayer().getQtyCardsInHand();
+		int pRightCards = this.gameState.getRightPlayer().getQtyCardsInHand();
 		
 		for (int i=0; i<pLeftCards; i++) {
 			JLabel cbl = new JLabel(cardBackLeft);
-			cbl.setLocation(20, 30 +i*10);
+			cbl.setSize(175,125);
+			this.add(cbl, -1, 0);
+			cbl.setLocation(50, 20 + 12*i);
 			cbl.setVisible(true);
-			this.add(cbl, -1, -1);
 		}
+		
+		for(int i=0; i<pRightCards; i++) {
+			JLabel cbr = new JLabel(cardBackRight);
+			cbr.setSize(175,125);
+			this.add(cbr, -1, 0);
+			cbr.setLocation(790, 210 - 12*i);
+			cbr.setVisible(true);
+		}
+		
+		this.repaint();
 		
 	}
 

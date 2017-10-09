@@ -11,7 +11,7 @@ import util.GameState;
 import util.Player;
 
 public class GameUITest {
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
 		GameUI g = new GameUI();
 		Player p = new Player("testPlayer");
 		ArrayList<Card> Cards = new ArrayList<Card>();
@@ -39,8 +39,19 @@ public class GameUITest {
 		}
 		p.setHand(Cards);
 		GameState gs = new GameState(p, null, null, null, null);
-		System.out.println();
-		g.setGameState(gs);
 		
+
+		g.setGameState(gs);
+		g.repaint();
+		
+		Thread.sleep(3000);
+		
+		System.out.println("REMOVING A CARD");
+		p.getHand().remove(0);
+		System.out.println(p.getHand().size());
+		g.setGameState(gs);
+		g.validate();
+		g.repaint();
+		System.out.println("Card removed");
 	}
 }
