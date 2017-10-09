@@ -51,7 +51,7 @@ public class Game {
 			Collections.reverse(hand);
 			
 			sPlayers.get(p).setHand(hand);
-			cardsOnTable[p] = hand.get(0);
+			//cardsOnTable[p] = hand.get(0);
 			//System.out.println("player "+p+" has a hand");
 			//System.out.println(sPlayers.get(p).getHand().toString());
 		}
@@ -69,7 +69,7 @@ public class Game {
 				}
 				ServerPlayer currentPlayer = sPlayers.get(player_turn);
 				currentPlayer.receiveGameState();
-				currentState = currentPlayer.getGameState();
+				cardsOnTable[player_turn] = currentPlayer.getGameState().getCardsOnTable()[1];
 			this.IncrementTurn();
 			//System.out.println("I Incremented turn");
 			}
@@ -100,9 +100,6 @@ public class Game {
 		g.setPlayerTurn(pTurn);
 		return g;
 	}
-	
-	
-	
 	
 	public void FindWinnerFinal() {
 		int p1=sPlayers.get(0).getRoundsWon();
@@ -217,7 +214,6 @@ public class Game {
 	
 	public void FindWinner(GameState currentState) {
 		
-		Card[] cardsOnTable = currentState.getCardsOnTable();
 		Card p1=cardsOnTable[0];
 		Card p2=cardsOnTable[1];
 		Card p3=cardsOnTable[2];

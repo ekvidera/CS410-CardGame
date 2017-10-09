@@ -33,6 +33,4 @@ public class Server {
 		game.GameLoop();
 	}
 
-
-
 }
